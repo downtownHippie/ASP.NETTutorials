@@ -157,6 +157,10 @@
     <Compile Include="Migrations\201407041817062_DepartmentSP.Designer.cs">
       <DependentUpon>201407041817062_DepartmentSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407042052079_removeDeparmentStartDate.cs" />
+    <Compile Include="Migrations\201407042052079_removeDeparmentStartDate.Designer.cs">
+      <DependentUpon>201407042052079_removeDeparmentStartDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407041817062_DepartmentSP.resx">
       <DependentUpon>201407041817062_DepartmentSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407042052079_removeDeparmentStartDate.resx">
+      <DependentUpon>201407042052079_removeDeparmentStartDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
