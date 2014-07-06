@@ -15,8 +15,8 @@ namespace ContosoUniversity.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        //protected override void Seed(SchoolContext context)
-        //{
+        protected override void Seed(SchoolContext context)
+        {
         //    var students = new List<Student>
         //    {
         //        new Student { FirstMidName = "Carson",   LastName = "Alexander", 
@@ -60,16 +60,12 @@ namespace ContosoUniversity.Migrations
         //    var departments = new List<Department>
         //    {
         //        new Department { Name = "English",     Budget = 350000, 
-        //            StartDate = DateTime.Parse("2007-09-01"), 
         //            InstructorID  = instructors.Single( i => i.LastName == "Abercrombie").ID },
         //        new Department { Name = "Mathematics", Budget = 100000, 
-        //            StartDate = DateTime.Parse("2007-09-01"), 
         //            InstructorID  = instructors.Single( i => i.LastName == "Fakhouri").ID },
         //        new Department { Name = "Engineering", Budget = 350000, 
-        //            StartDate = DateTime.Parse("2007-09-01"), 
         //            InstructorID  = instructors.Single( i => i.LastName == "Harui").ID },
         //        new Department { Name = "Economics",   Budget = 100000, 
-        //            StartDate = DateTime.Parse("2007-09-01"), 
         //            InstructorID  = instructors.Single( i => i.LastName == "Kapoor").ID }
         //    };
         //    departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
@@ -206,14 +202,14 @@ namespace ContosoUniversity.Migrations
         //        }
         //    }
         //    context.SaveChanges();
-        //}
-
-        void AddOrUpdateInstructor(SchoolContext context, string courseTitle, string instructorName)
-        {
-            var crs = context.Courses.SingleOrDefault(c => c.Title == courseTitle);
-            var inst = crs.Instructors.SingleOrDefault(i => i.LastName == instructorName);
-            if (inst == null)
-                crs.Instructors.Add(context.Instructors.Single(i => i.LastName == instructorName));
         }
+
+        //void AddOrUpdateInstructor(SchoolContext context, string courseTitle, string instructorName)
+        //{
+        //    var crs = context.Courses.SingleOrDefault(c => c.Title == courseTitle);
+        //    var inst = crs.Instructors.SingleOrDefault(i => i.LastName == instructorName);
+        //    if (inst == null)
+        //        crs.Instructors.Add(context.Instructors.Single(i => i.LastName == instructorName));
+        //}
     }
 }
