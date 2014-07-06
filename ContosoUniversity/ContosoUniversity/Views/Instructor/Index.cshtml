@@ -1,4 +1,4 @@
-﻿@model ContosoUniversity.ViewModels.InstructorIndexData
+﻿@model IEnumerable<ContosoUniversity.Models.Instructor>
 
 @{
     ViewBag.Title = "Instructors";
@@ -18,14 +18,9 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Instructors)
+    @foreach (var item in Model)
     {
-        string selectedRow = "";
-        if (item.ID == ViewBag.InstructorID)
-        {
-            selectedRow = "success";
-        }
-        <tr class="@selectedRow">
+        <tr >
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
@@ -42,7 +37,6 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Select", "Index", new { id = item.ID }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -50,61 +44,3 @@
         </tr>
     }
 </table>
-
-@if (Model.Courses != null)
-{
-    <h3>Courses Taught by Selected Instructor</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Department</th>
-        </tr>
-
-        @foreach (var item in Model.Courses)
-        {
-            string selectedRow = "";
-            if (item.CourseID == ViewBag.CourseID)
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.ActionLink("Select", "Index", new { courseID = item.CourseID })
-                </td>
-                <td>
-                    @item.CourseID
-                </td>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Department.Name
-                </td>
-            </tr>
-        }
-    </table>
-}
-
-@if (Model.Enrollments != null)
-{
-    <h3>Students Enrolled in Selected Course</h3>
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Grade</th>
-        </tr>
-        @foreach (var item in Model.Enrollments)
-        {
-            <tr>
-                <td>
-                    @item.Student.FullName
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Grade)
-                </td>
-            </tr>
-        }
-    </table>
-}

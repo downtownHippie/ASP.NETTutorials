@@ -18,54 +18,50 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Instructor
-        public ActionResult Index(int? id, int? courseID)
+        public ActionResult Index()
         {
-            var viewModel = new InstructorIndexData();
-            viewModel.Instructors = db.Instructors
-                .Include(i => i.OfficeAssignment)
-                .Include(i => i.Courses.Select(c => c.Department))
-                .OrderBy(i => i.LastName);
+            var instructors = db.Instructors
+                .Include(i => i.OfficeAssignment);
 
-            if (id != null)
+            return View(instructors);
+        }
+
+        // GET: Instructor/Details/5
+        public ActionResult Details(int? id, int? courseID)
+        {
+            if (id == null)
             {
-                ViewBag.InstructorID = id.Value;
-                viewModel.Courses = viewModel.Instructors.Where(
-                    i => i.ID == id.Value).Single().Courses;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Instructor instructor = db.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Where(i => i.ID == id)
+                .Single();
+            
+            if (instructor == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.InstructorID = id.Value;
+            var viewModel = new InstructorIndexData();
+            viewModel.instructor = instructor;
+            viewModel.Courses = viewModel.instructor.Courses;
 
             if (courseID != null)
             {
                 ViewBag.CourseID = courseID.Value;
-                // Lazy loading
-                //viewModel.Enrollments = viewModel.Courses
-                //    .Where(x => x.CourseID == courseID).Single().Enrollments;
-                // Explicit loading
+
                 var selectedCourse = viewModel.Courses.Where(x => x.CourseID == courseID).Single();
                 db.Entry(selectedCourse).Collection(x => x.Enrollments).Load();
                 foreach (Enrollment enrollment in selectedCourse.Enrollments)
                 {
                     db.Entry(enrollment).Reference(x => x.Student).Load();
                 }
-
                 viewModel.Enrollments = selectedCourse.Enrollments;
             }
 
             return View(viewModel);
-        }
-
-        // GET: Instructor/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Instructor instructor = db.Instructors.Find(id);
-            if (instructor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(instructor);
         }
 
         // GET: Instructor/Create
