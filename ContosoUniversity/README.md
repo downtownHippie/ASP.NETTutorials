@@ -29,3 +29,5 @@ TODO:
         delete all courses associated with that department
         
         delete all enrollments associated with those courses
+
+    when enrolling students in courses, courses should be grouped by department somehow
