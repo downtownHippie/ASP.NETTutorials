@@ -2,7 +2,7 @@ In the tutorial there was no mechanism to enroll students in courses
 
     Added mechanism to enroll students in courses when creating a new student
     
-    Added mechanism to enroll and disenroll a student in courses when editing a student
+    Added mechanism to enroll and unenroll a student in courses when editing a student
     
 TODO:
 
