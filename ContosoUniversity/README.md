@@ -21,3 +21,11 @@ TODO:
     assign/change grades for students in classes
     
         either when editing a student or maybe when viewing students in a class
+        
+    depeartment deletion should
+
+        delete all instructors associated with that department
+        
+        delete all courses associated with that department
+        
+        delete all enrollments associated with those courses
