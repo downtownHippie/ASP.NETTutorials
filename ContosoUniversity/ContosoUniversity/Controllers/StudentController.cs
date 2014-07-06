@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
+using ContosoUniversity.ViewModels;
 
 namespace ContosoUniversity.Controllers
 {
@@ -43,7 +44,7 @@ namespace ContosoUniversity.Controllers
                     || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
             }
 
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "name_desc":
                     students = students.OrderByDescending(s => s.LastName);
@@ -83,6 +84,9 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
+            var student = new Student();
+            student.Enrollments = new List<Enrollment>();
+            PopulateAssignedCourseData(student);
             return View();
         }
 
@@ -91,8 +95,21 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Create([Bind(Include = "LastName,FirstMidName,EnrollmentDate")] Student student, string[] selectedCourses)
         {
+            if (selectedCourses != null)
+            {
+                student.Enrollments = new List<Enrollment>();
+                foreach (var courseID in selectedCourses)
+                {
+                    Enrollment enrollment = new Enrollment();
+                    int courseIDi = int.Parse(courseID);
+                    Course course = db.Courses.Where(c => c.CourseID == courseIDi).Single();
+                    enrollment.Course = course;
+                    enrollment.Student = student;
+                    student.Enrollments.Add(enrollment);
+                }
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -107,6 +124,8 @@ namespace ContosoUniversity.Controllers
                 // Log error (uncomment dex variable and add a line to write to log
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator");
             }
+
+            PopulateAssignedCourseData(student);
             return View(student);
         }
 
@@ -117,7 +136,12 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            //Student student = db.Students.Find(id);
+            Student student = db.Students
+                .Include(i => i.Enrollments)
+                .Where(i => i.ID == id)
+                .Single();
+            PopulateAssignedCourseData(student);
             if (student == null)
             {
                 return HttpNotFound();
@@ -130,23 +154,39 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Edit(int? id, string[] selectedCourses)
         {
-            try
+            if (id == null)
             {
-                if (ModelState.IsValid)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var studentToUpdate = db.Students
+                .Include(i => i.Enrollments)
+                .Where(i => i.ID == id)
+                .Single();
+            if (TryUpdateModel(studentToUpdate, "", new string[] { "LastName", "FirstMidName", "EnrollmentDate" }))
+            {
+                try
                 {
-                    db.Entry(student).State = EntityState.Modified;
+                    UpdateStudentCourses(selectedCourses, studentToUpdate);
+                    db.Entry(studentToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                catch (DataException dex)
+                {
+                    // log the error (uncomment dex and add line here to log)
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists contact your system administrator");
+                    ModelState.AddModelError("", dex.Message);
+                    if (dex.InnerException != null)
+                    {
+                        ModelState.AddModelError("", dex.InnerException.Message);
+                    }
+                }
             }
-            catch (DataException /* dex */)
-            {
-                // log the error (uncomment dex and add line here to log)
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists contact your system administrator");
-            }
-            return View(student);
+            PopulateAssignedCourseData(studentToUpdate);
+            return View(studentToUpdate);
         }
 
         // GET: Student/Delete/5
@@ -173,18 +213,73 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
+            Student student = db.Students.Find(id);
+
             try
             {
-                Student student = db.Students.Find(id);
                 db.Students.Remove(student);
                 db.SaveChanges();
             }
             catch (DataException /* dex */)
             {
-                // log error (uncomment dex and add a line here to log error
+                // log error (uncomment dex and add a line here to log error)
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
             return RedirectToAction("Index");
+        }
+
+        private void PopulateAssignedCourseData(Student student)
+        {
+            var allCourses = db.Courses;
+            var studentCourses = new HashSet<int>(student.Enrollments.Select(c => c.CourseID));
+            var viewModel = new List<AssignedCourseData>();
+            foreach (var course in allCourses)
+            {
+                viewModel.Add(new AssignedCourseData
+                {
+                    CourseID = course.CourseID,
+                    Title = course.Title,
+                    Assigned = studentCourses.Contains(course.CourseID)
+                });
+            }
+            ViewBag.Courses = viewModel;
+        }
+
+        private void UpdateStudentCourses(string[] selectedCourses, Student studentToUpdate)
+        {
+            HashSet<string> selectedCoursesHS;
+            if (selectedCourses == null)
+            {
+                selectedCoursesHS = new HashSet<string>();
+            }
+            else
+            {
+                selectedCoursesHS = new HashSet<string>(selectedCourses);
+            }
+            var studentEnrollments = new HashSet<int>(studentToUpdate.Enrollments.Select(e => e.CourseID));
+            var courses = db.Courses.ToList();
+            foreach (var course in courses)
+            {
+                if (selectedCoursesHS.Contains(course.CourseID.ToString()))
+                {
+                    if (!studentEnrollments.Contains(course.CourseID))
+                    {
+                        Enrollment enrollment = new Enrollment();
+                        enrollment.Course = course;
+                        enrollment.Student = studentToUpdate;
+                        studentToUpdate.Enrollments.Add(enrollment);
+                    }
+                }
+                else
+                    if (studentEnrollments.Contains(course.CourseID))
+                    {
+                        Enrollment enrollment = db.Enrollments
+                            .Where(i => i.StudentID == studentToUpdate.ID)
+                            .Where(d => d.CourseID == course.CourseID)
+                            .Single();
+                        db.Enrollments.Remove(enrollment);
+                    }
+            }
         }
 
         protected override void Dispose(bool disposing)
