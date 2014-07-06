@@ -4,9 +4,11 @@ In the tutorial there was no mechanism to enroll students in courses
     
     Added mechanism to enroll and unenroll a student in courses when editing a student
     
+    In the tutorial, on the instructors index page you could select an instructor and the page would update
+and include all courses the instructor was teaching.  then you could select one of those courses and the page
+would update again listing all the students in those courses.  All that was moved to the instructor detail page
+    
 TODO:
-
-    Details view of instructor needs to list courses being taught instead of part of instructor index
     
     Add department to instructor
     
