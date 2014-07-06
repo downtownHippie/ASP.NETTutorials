@@ -5,6 +5,7 @@ In the tutorial there was no mechanism to enroll students in courses
     Added mechanism to enroll and disenroll a student in a course when editing a student
     
 TODO:
+
     Details view of instructor needs to list courses being taught
     
     Add department to instructor
