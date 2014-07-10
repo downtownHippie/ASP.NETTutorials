@@ -238,10 +238,12 @@ namespace ContosoUniversity.Controllers
                 {
                     CourseID = course.CourseID,
                     Title = course.Title,
+                    DepartmentID = course.DepartmentID,
                     Assigned = studentCourses.Contains(course.CourseID)
                 });
             }
             ViewBag.Courses = viewModel;
+            ViewBag.Departments = db.Departments;
         }
 
         private void UpdateStudentCourses(string[] selectedCourses, Student studentToUpdate)
