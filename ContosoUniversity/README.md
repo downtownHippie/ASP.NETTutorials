@@ -12,7 +12,7 @@ In the tutorial there was no mechanism to enroll students in courses (initial en
 Through the tutorial, the instructors index page allowed selection of an instructor.  The page would then repost and list all courses that instructor was teaching below the insturctor list.  Then, with the selection of one of those courses the page would repost again listing all the students in those courses, with their grades, at the bottom of the page.
 * All that functionality was moved to the instructor detail page.
 
-When selecting a course on the instructor details page the page reposts with the students and their grades listed at the bottom (as indicated above).  Added a link to edit a student's grade
+When selecting a course on the instructor details page the page reposts with the students and their grades listed at the bottom (as indicated above).  Added a link to edit a student's grade.
 
 Notes from the original tutorial:
 
