@@ -1,33 +1,27 @@
-In the tutorial there was no mechanism to enroll students in courses
+[Link to the original tutorial on ASP.NET](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc)
 
-    Added mechanism to enroll students in courses when creating a new student
-    
-    Added mechanism to enroll and unenroll a student in courses when editing a student
-    
-In the tutorial, on the instructors index page you could select an instructor and the page would update
-and include all courses the instructor was teaching.  then you could select one of those courses and the page
-would update again listing all the students in those courses.
+In the tutorial there was no mechanism to enroll students in courses (initial enrollments were done via [the seed method](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Migrations/Configuration.cs) in Configuration.cs).
 
-    All that was moved to the instructor detail page
+1. The create new student page was modified to list all courses offered by the university.
+    * Selecting a course will enroll a student in that course.
+2. The edit student page was modified to list all courses offered by the university.
+    * The courses a student is enrolled in are selected.
+    * A student can be enrolled in additional courses by selecting them.
+    * A student can be unenrolled from courses by unselecting them.
     
-TODO:
-    
-    Add department to instructor
-    
-        limit department administrator to one of department instructors
-        
-        limit instructor to only teaching classes offered by the department
-        
-    assign/change grades for students in classes
-    
-        either when editing a student or maybe when viewing students in a class
-        
-    depeartment deletion should
+Through the tutorial, the instructors index page allowed selection of an instructor.  The page would then repost and list all courses that instructor was teaching below the insturctor list.  Then, with the selection of one of those courses the page would repost again listing all the students in those courses, with their grades, at the bottom of the page.
+* All that functionality was moved to the instructor detail page.
 
-        delete all instructors associated with that department
-        
-        delete all courses associated with that department
-        
-        delete all enrollments associated with those courses
+Notes from the original tutorial:
 
-    when enrolling students in courses, courses should be grouped by department somehow
+1. LocalDB was not used, the connection string in [Web.Config](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Web.config) points to a SQLServer 2014 instance named ContosoUniversity.
+2. The code in the seed method in  [SchoolInitializer.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/DAL/SchoolInitializer.cs) was commented out later on as a precaution.
+3. The code in the seed method, and an associated method, in [Migrations/Configruations.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Migrations/Configuration.cs) was commented out.
+    * The StartDate field was removed from the department model, the seed method was updated.
+    * These methods should adequately seed a database to utilize this project - don't forget to uncomment it if you want to seed a database.
+4. [The connection resiliency and command interception](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application) steps were skipped.
+5. [The concurrency step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
+6. [The inheritance step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
+7. [None of the advanced Entity Framework scenarios](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application) were implemented.
+
+**TODO**: all todo's were migrated to issues associated with this repository.
