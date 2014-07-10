@@ -77,6 +77,8 @@ namespace ContosoUniversity.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.theCourseID = courseID;
+            ViewBag.theInstructorID = instructorID;
             //ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
             //ViewBag.StudentID = new SelectList(db.Students, "ID", "LastName", enrollment.StudentID);
             return View(enrollment);

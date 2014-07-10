@@ -50,7 +50,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "../Instructor/Index")
+    @Html.ActionLink("Back to List", "Details", "Instructor", new { ID = ViewBag.theInstructorID, courseID = ViewBag.theCourseID }, null)
 </div>
 
 @section Scripts {
