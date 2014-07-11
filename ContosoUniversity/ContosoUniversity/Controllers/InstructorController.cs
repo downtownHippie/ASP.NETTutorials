@@ -19,7 +19,8 @@ namespace ContosoUniversity.Controllers
         public ActionResult Index()
         {
             var instructors = db.Instructors
-                .Include(i => i.OfficeAssignment);
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.Department);
 
             return View(instructors);
         }
@@ -33,6 +34,7 @@ namespace ContosoUniversity.Controllers
             }
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
+                .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
             
@@ -42,15 +44,15 @@ namespace ContosoUniversity.Controllers
             }
 
             ViewBag.InstructorID = id.Value;
-            var viewModel = new InstructorIndexData();
-            viewModel.instructor = instructor;
-            viewModel.Courses = viewModel.instructor.Courses;
+            var viewModel = new InstructorDetailData();
+            viewModel.Instructor = instructor;
+            viewModel.Courses = instructor.Courses;
 
             if (courseID != null)
             {
                 ViewBag.CourseID = courseID.Value;
 
-                var selectedCourse = viewModel.Courses.Where(x => x.CourseID == courseID).Single();
+                var selectedCourse = instructor.Courses.Where(x => x.CourseID == courseID).Single();
                 db.Entry(selectedCourse).Collection(x => x.Enrollments).Load();
                 foreach (Enrollment enrollment in selectedCourse.Enrollments)
                 {
@@ -68,6 +70,7 @@ namespace ContosoUniversity.Controllers
             var instructor = new Instructor();
             instructor.Courses = new List<Course>();
             PopulateAssignedCourseData(instructor);
+            PopulateDepartmentsDropDownList();
             return View();
         }
 
@@ -76,7 +79,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,HireDate,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
+        public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,HireDate,DepartmentID,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
             if (selectedCourses != null)
             {
@@ -95,6 +98,7 @@ namespace ContosoUniversity.Controllers
             }
 
             PopulateAssignedCourseData(instructor);
+            PopulateDepartmentsDropDownList(instructor.DepartmentID);
             return View(instructor);
         }
 
@@ -108,13 +112,15 @@ namespace ContosoUniversity.Controllers
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses)
+                .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
-            PopulateAssignedCourseData(instructor);
             if (instructor == null)
             {
                 return HttpNotFound();
             }
+            PopulateAssignedCourseData(instructor);
+            PopulateDepartmentsDropDownList(instructor.DepartmentID);
             return View(instructor);
         }
 
@@ -132,11 +138,12 @@ namespace ContosoUniversity.Controllers
             var instructorToUpdate = db.Instructors
                .Include(i => i.OfficeAssignment)
                .Include(i => i.Courses)
+               .Include(i => i.Department)
                .Where(i => i.ID == id)
                .Single();
 
             if (TryUpdateModel(instructorToUpdate, "",
-               new string[] { "LastName", "FirstMidName", "HireDate", "OfficeAssignment" }))
+               new string[] { "LastName", "FirstMidName", "HireDate", "Department", "OfficeAssignment" }))
             {
                 try
                 {
@@ -159,6 +166,7 @@ namespace ContosoUniversity.Controllers
                 }
             }
             PopulateAssignedCourseData(instructorToUpdate);
+            PopulateDepartmentsDropDownList(instructorToUpdate.DepartmentID);
             return View(instructorToUpdate);
         }
 
@@ -184,6 +192,7 @@ namespace ContosoUniversity.Controllers
         {
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
+                .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
 
@@ -202,7 +211,7 @@ namespace ContosoUniversity.Controllers
 
         private void PopulateAssignedCourseData(Instructor instructor)
         {
-            var allCourses = db.Courses;
+            var allCourses = db.Courses.Where(d => d.DepartmentID == instructor.DepartmentID);
             var instrucorCourses = new HashSet<int>(instructor.Courses.Select(c => c.CourseID));
             var viewModel = new List<AssignedCourseData>();
             foreach (var course in allCourses)
@@ -238,6 +247,14 @@ namespace ContosoUniversity.Controllers
                     if (instructorCourses.Contains(course.CourseID))
                         instructorToUpdate.Courses.Remove(course);
             }
+        }
+
+        private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in db.Departments
+                                   orderby d.Name
+                                   select d;
+            ViewBag.DepartmentID = new SelectList(departmentsQuery, "DepartmentID", "Name", selectedDepartment);
         }
 
         protected override void Dispose(bool disposing)

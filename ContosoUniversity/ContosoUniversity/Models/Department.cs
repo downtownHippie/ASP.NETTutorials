@@ -15,9 +15,11 @@ namespace ContosoUniversity.Models
         [Column(TypeName = "money")]
         public decimal Budget { get; set; }
 
+        [ForeignKey("Administrator")]
         public int? InstructorID { get; set; }
 
         public virtual Instructor Administrator { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Instructor> Instructors { get; set; }
     }
 }

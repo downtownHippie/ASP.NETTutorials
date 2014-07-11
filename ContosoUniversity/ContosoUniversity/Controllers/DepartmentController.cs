@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ContosoUniversity.Controllers
 {
@@ -45,7 +46,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,InstructorID")] Department department)
+        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +55,7 @@ namespace ContosoUniversity.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
             return View(department);
         }
 
@@ -70,7 +71,8 @@ namespace ContosoUniversity.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            PopulateInstructorsDropDownList(department.DepartmentID, department.InstructorID);
             return View(department);
         }
 
@@ -87,7 +89,8 @@ namespace ContosoUniversity.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            PopulateInstructorsDropDownList(department.DepartmentID, department.InstructorID);
             return View(department);
         }
 
@@ -115,6 +118,14 @@ namespace ContosoUniversity.Controllers
             db.Departments.Remove(department);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private void PopulateInstructorsDropDownList(int departmentID, object selectedInstructor = null)
+        {
+            var instructorsQuery = from i in db.Instructors
+                                   where (i.DepartmentID == departmentID)
+                                   select i;
+            ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
         }
 
         protected override void Dispose(bool disposing)

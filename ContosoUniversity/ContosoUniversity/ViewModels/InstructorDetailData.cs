@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ContosoUniversity.ViewModels
 {
-    public class InstructorIndexData
+    public class InstructorDetailData
     {
-        public Instructor instructor { get; set; }
+        public Instructor Instructor { get; set; }
         public IEnumerable<Course> Courses { get; set; }
         public IEnumerable<Enrollment> Enrollments { get; set; }
     }

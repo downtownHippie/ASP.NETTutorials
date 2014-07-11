@@ -1,4 +1,4 @@
-﻿@model ContosoUniversity.ViewModels.InstructorIndexData
+﻿@model ContosoUniversity.ViewModels.InstructorDetailData
 
 @{
     ViewBag.Title = "Details";
@@ -11,47 +11,55 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.instructor.OfficeAssignment.Location)
+            @Html.DisplayNameFor(model => model.Instructor.OfficeAssignment.Location)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.instructor.OfficeAssignment.Location)
+            @Html.DisplayFor(model => model.Instructor.OfficeAssignment.Location)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.instructor.LastName)
+            @Html.DisplayNameFor(model => model.Instructor.Department)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.instructor.LastName)
+            @Html.DisplayFor(model => model.Instructor.Department.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.instructor.FirstMidName)
+            @Html.DisplayNameFor(model => model.Instructor.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.instructor.FirstMidName)
+            @Html.DisplayFor(model => model.Instructor.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.instructor.HireDate)
+            @Html.DisplayNameFor(model => model.Instructor.FirstMidName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.instructor.HireDate)
+            @Html.DisplayFor(model => model.Instructor.FirstMidName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instructor.HireDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instructor.HireDate)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.instructor.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Instructor.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
 @if (Model.Courses != null)
 {
-    <h3>Courses Taught by Selected Instructor</h3>
+    <h3>Courses Taught by @Html.DisplayFor(model => model.Instructor.FirstMidName) @Html.DisplayFor(model => model.Instructor.LastName)</h3>
     <table class="table">
         <tr>
             <th></th>
@@ -87,7 +95,7 @@
 
 @if (Model.Enrollments != null)
 {
-    <h3>Students Enrolled in Selected Course</h3>
+    <h3>Students Enrolled in @Html.DisplayFor(model => model.Instructor.Department.Name) @ViewBag.CourseID</h3>
     <table class="table">
         <tr>
             <th>Name</th>
@@ -104,7 +112,7 @@
                     @Html.DisplayFor(modelItem => item.Grade)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Enrollment", new { id = item.EnrollmentID, instructorID = Model.instructor.ID, courseID = item.CourseID }, null)
+                    @Html.ActionLink("Edit", "Edit", "Enrollment", new { id = item.EnrollmentID, instructorID = Model.Instructor.ID }, null)
                 </td>
             </tr>
         }

@@ -66,7 +66,7 @@ namespace ContosoUniversity.Controllers
         //}
 
         // GET: Enrollment/Edit/5
-        public async Task<ActionResult> Edit(int? id, int? instructorID, int? courseID)
+        public async Task<ActionResult> Edit(int? id, int? instructorID)
         {
             if (id == null)
             {
@@ -77,7 +77,7 @@ namespace ContosoUniversity.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.theCourseID = courseID;
+            ViewBag.theCourseID = enrollment.CourseID;
             ViewBag.theInstructorID = instructorID;
             //ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
             //ViewBag.StudentID = new SelectList(db.Students, "ID", "LastName", enrollment.StudentID);
@@ -89,14 +89,14 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,Grade")] Enrollment enrollment, int? instructorID, int? courseID)
+        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,Grade")] Enrollment enrollment, int? instructorID)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(enrollment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 //return RedirectToAction("../Instructor/Details/" + instructorID + "?courseID=" + courseID);
-                return RedirectToAction("Details", "Instructor", new { id = instructorID, courseID = courseID });
+                return RedirectToAction("Details", "Instructor", new { id = instructorID, courseID = enrollment.CourseID });
             }
             //ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
             //ViewBag.StudentID = new SelectList(db.Students, "ID", "LastName", enrollment.StudentID);

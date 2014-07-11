@@ -14,6 +14,7 @@
         <th>Last Name</th>
         <th>First Name</th>
         <th>Hire Date</th>
+        <th>Department</th>
         <th>Office</th>
         <th></th>
     </tr>
@@ -29,6 +30,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HireDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
             </td>
             <td>
                 @if (item.OfficeAssignment != null)
