@@ -1,4 +1,4 @@
-﻿@model ContosoUniversity.Models.Department
+﻿@model ContosoUniversity.ViewModels.DepartmentDetailsData
 
 @{
     ViewBag.Title = "Details";
@@ -15,28 +15,66 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Administrator.FullName)
+            @Html.DisplayFor(model => model.Department.Administrator.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Department.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Budget)
+            @Html.DisplayNameFor(model => model.Department.Budget)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Budget)
+            @Html.DisplayFor(model => model.Department.Budget)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DepartmentID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Department.DepartmentID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@if (Model.Instructors != null)
+{
+    <h3>Instructors in the @Html.DisplayFor(model => model.Department.Name) department</h3>
+    <table class="table">
+        <tr>
+            <th>Instructor</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Instructors)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@Html.ActionLink("Details", "Details", "Instructor", new { id = item.ID }, null)</td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.Coruses != null)
+{
+    <h3>Courses offered by the @Html.DisplayFor(model => model.Department.Name) department</h3>
+    <table class="table">
+        <tr>
+            <th>Course ID</th>
+            <th>Name</th>
+            <th>Credits</th>
+        </tr>
+        @foreach (var item in Model.Coruses)
+        {
+            <tr>
+                <td>@item.CourseID</td>
+                <td>@item.Title</td>
+                <td>@item.Credits</td>
+            </tr>
+        }
+    </table>
+}

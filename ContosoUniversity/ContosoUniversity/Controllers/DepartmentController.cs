@@ -1,5 +1,6 @@
 ﻿using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using ContosoUniversity.ViewModels;
 using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
@@ -31,7 +32,11 @@ namespace ContosoUniversity.Controllers
             {
                 return HttpNotFound();
             }
-            return View(department);
+            var viewModel = new DepartmentDetailsData();
+            viewModel.Department = department;
+            viewModel.Coruses = department.Courses;
+            viewModel.Instructors = department.Instructors;
+            return View(viewModel);
         }
 
         // GET: Department/Create
