@@ -229,7 +229,7 @@ namespace ContosoUniversity.Controllers
 
         private void PopulateAssignedCourseData(Student student)
         {
-            var allCourses = db.Courses;
+            var allCourses = db.Courses.OrderBy(c => c.CourseID);
             var studentCourses = new HashSet<int>(student.Enrollments.Select(c => c.CourseID));
             var viewModel = new List<AssignedCourseData>();
             foreach (var course in allCourses)
@@ -243,7 +243,7 @@ namespace ContosoUniversity.Controllers
                 });
             }
             ViewBag.Courses = viewModel;
-            ViewBag.Departments = db.Departments;
+            ViewBag.Departments = db.Departments.OrderBy(d => d.Name);
         }
 
         private void UpdateStudentCourses(string[] selectedCourses, Student studentToUpdate)
