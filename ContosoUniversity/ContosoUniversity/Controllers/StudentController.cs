@@ -243,7 +243,7 @@ namespace ContosoUniversity.Controllers
                 });
             }
             ViewBag.Courses = viewModel;
-            ViewBag.Departments = db.Departments.OrderBy(d => d.Name);
+            ViewBag.Departments = db.Departments;
         }
 
         private void UpdateStudentCourses(string[] selectedCourses, Student studentToUpdate)
