@@ -58,11 +58,12 @@
                                                     {
                                                         @:</tr><tr>
                                                     }
-                                                @:<td>
-                                                    <input type="checkbox" name="selectedCourses" value="@course.CourseID"
-                                                    @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
-                                                    @course.CourseID @:  @course.Title
-                                                @:</td>
+                                                @:<td style="border-top-style: none">
+                                        <input type="checkbox" name="selectedCourses" value="@course.CourseID"
+                                               @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                        @course.CourseID @:  @course.Title
+                                        @:
+                                    </td>
                                             }
                                         @:</tr>
                                         }
