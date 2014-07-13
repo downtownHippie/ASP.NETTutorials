@@ -16,7 +16,8 @@ namespace ContosoUniversity.Controllers
         // GET: Department
         public async Task<ActionResult> Index()
         {
-            var departments = db.Departments.Include(d => d.Administrator);
+            var departments = db.Departments.Include(d => d.Administrator)
+                .OrderBy(d => d.Name);
             return View(await departments.ToListAsync());
         }
 

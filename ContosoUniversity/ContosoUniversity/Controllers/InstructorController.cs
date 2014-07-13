@@ -19,9 +19,11 @@ namespace ContosoUniversity.Controllers
         public ActionResult Index()
         {
             var instructors = db.Instructors
+                .OrderBy(i => i.Department.Name)
+                .ThenBy(i => i.LastName)
+                .ThenBy(i => i.FirstMidName)
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Department);
-
             return View(instructors);
         }
 
@@ -37,7 +39,7 @@ namespace ContosoUniversity.Controllers
                 .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
-            
+
             if (instructor == null)
             {
                 return HttpNotFound();

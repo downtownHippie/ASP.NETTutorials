@@ -15,8 +15,11 @@ namespace ContosoUniversity.Controllers
         // GET: Course
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Department);
-            return View(courses.ToList());
+            var courses = db.Courses
+                .OrderBy(c => c.Department.Name)
+                .ThenBy(c => c.CourseID)
+                .Include(c => c.Department);
+            return View(courses);
         }
 
         // GET: Course/Details/5
