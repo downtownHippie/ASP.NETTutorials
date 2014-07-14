@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContosoUniversity", "ContosoUniversity\ContosoUniversity.csproj", "{4397EEDD-862E-40FD-A3A2-B20A4BD48B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDeleteTest", "DatabaseDeleteTest\DatabaseDeleteTest.csproj", "{33D29824-0FBB-4840-808A-E793DA0DD3DD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{4397EEDD-862E-40FD-A3A2-B20A4BD48B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4397EEDD-862E-40FD-A3A2-B20A4BD48B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4397EEDD-862E-40FD-A3A2-B20A4BD48B62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33D29824-0FBB-4840-808A-E793DA0DD3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33D29824-0FBB-4840-808A-E793DA0DD3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33D29824-0FBB-4840-808A-E793DA0DD3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33D29824-0FBB-4840-808A-E793DA0DD3DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
