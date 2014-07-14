@@ -83,9 +83,9 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,HireDate,DepartmentID,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
+            instructor.Courses = new List<Course>();
             if (selectedCourses != null)
             {
-                instructor.Courses = new List<Course>();
                 foreach (var course in selectedCourses)
                 {
                     var courseToAdd = db.Courses.Find(int.Parse(course));
@@ -154,7 +154,7 @@ namespace ContosoUniversity.Controllers
                         instructorToUpdate.OfficeAssignment = null;
                     }
 
-                    UpdateInstructorCourses(selectedCourses, instructorToUpdate);
+                    UpdateInstructorCourses(instructorToUpdate, selectedCourses);
 
                     db.Entry(instructorToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
@@ -228,7 +228,7 @@ namespace ContosoUniversity.Controllers
             ViewBag.Courses = viewModel;
         }
 
-        private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
+        private void UpdateInstructorCourses(Instructor instructorToUpdate, string[] selectedCourses)
         {
             if (selectedCourses == null)
             {
