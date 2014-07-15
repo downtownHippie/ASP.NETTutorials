@@ -16,6 +16,8 @@ The department details page now lists all instructors from the department and al
 
 A collection of integration tests were developed to test the controllers.  A few minor issues relating to deletion of objects were detected and resolved.  The tests also revealed a a bug in the student and instructor controller.  The gui doesn't allow an invalid student or instructor object to be created.  But when testing the controllers directly the gui is bypassed and potentially invalid objects can be handed to the database for validation.  If an invalid object is passed to the database it throws an execption so the invalid object continues to the end of the method.  Both student and instructor contain navigation properties that were null, those objects needed to be instantiated as lists earlier in the controller method.  I'm sure someone would say "testing is good."
 
+The tutorial introduces model inheritance through TPH, using a discriminator field.  Model inheritance was implemented through the TPC method instead.
+
 Notes from the original tutorial:
 
 1. LocalDB was not used, the connection string in [Web.Config](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Web.config) points to a SQLServer 2014 instance named ContosoUniversity.
@@ -25,7 +27,7 @@ Notes from the original tutorial:
     * These methods should adequately seed a database to utilize this project - don't forget to uncomment it if you want to seed a database.
 4. [The connection resiliency and command interception](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application) steps were skipped.
 5. [The concurrency step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
-6. [The inheritance step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
+6. [The inheritance step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.  **NO LONGER RELEVANT**
 7. [None of the advanced Entity Framework scenarios](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application) were implemented.
 
 **TODO**: all todo's were migrated to issues/enhnacements associated with this repository.
