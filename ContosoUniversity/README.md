@@ -14,6 +14,8 @@ Instructors must now assigned to a department when they are created.  Instructor
 
 The department details page now lists all instructors from the department and all courses offered by the department.
 
+A collection of integration tests were developed to test the controllers.  A few minor issues relating to deletion of objects were detected and resolved.  The tests also revealed a a bug in the student and instructor controller.  The gui doesn't allow an invalid student or instructor object to be created.  But when testing the controllers directly the gui is bypassed and potentially invalid objects can be handed to the database for validation.  If an invalid object is passed to the database it throws an execption so the invalid object continues to the end of the method.  Both student and instructor contain navigation properties that were null, those objects needed to be instantiated as lists earlier in the controller method.  I'm sure someone would say "testing is good."
+
 Notes from the original tutorial:
 
 1. LocalDB was not used, the connection string in [Web.Config](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Web.config) points to a SQLServer 2014 instance named ContosoUniversity.
