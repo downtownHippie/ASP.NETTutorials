@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -197,6 +198,9 @@ namespace ContosoUniversity.Controllers
                 .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
+
+            string sql = "delete from CourseInstructor where InstructorID = @InstructorID";
+            db.Database.ExecuteSqlCommand(sql, new SqlParameter("@InstructorID", instructor.ID));
 
             instructor.OfficeAssignment = null;
             db.Instructors.Remove(instructor);
