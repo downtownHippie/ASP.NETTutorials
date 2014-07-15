@@ -1,7 +1,9 @@
 ﻿using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -121,6 +123,18 @@ namespace ContosoUniversity.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Department department = await db.Departments.FindAsync(id);
+            ICollection<Course> Courses = department.Courses;
+            foreach (Course course in Courses)
+            {
+                string sql = "delete from CourseInstructor where CourseID = @CourseID";
+                db.Database.ExecuteSqlCommand(sql, new SqlParameter("@CourseID", course.CourseID));
+            }
+            ICollection<Instructor> Instructors = department.Instructors;
+            foreach (Instructor instructor in Instructors)
+            {
+                string sql = "delete from OfficeAssignment where InstructorID = @InstructorID";
+                db.Database.ExecuteSqlCommand(sql, new SqlParameter("@InstructorID", instructor.ID));
+            }
             db.Departments.Remove(department);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
