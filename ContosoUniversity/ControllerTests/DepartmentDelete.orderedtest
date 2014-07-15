@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<OrderedTest name="DepartmentDelete" storage="d:\my documents\src\asp.nettutorials\contosouniversity\controllertests\departmentdelete.orderedtest" id="ad33555f-8e48-4fca-9393-4f6304cfe901" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<OrderedTest name="departmentdelete" storage="d:\my documents\src\asp.nettutorials\contosouniversity\controllertests\departmentdelete.orderedtest" id="ad33555f-8e48-4fca-9393-4f6304cfe901" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <TestLinks>
     <TestLink id="4ca218e0-af4c-f511-abf5-6e5c19944407" name="DatabaseReset" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="eb01e9f3-a3d5-c4f5-f5f6-1f96e5bcd123" name="DepartmentCreate" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

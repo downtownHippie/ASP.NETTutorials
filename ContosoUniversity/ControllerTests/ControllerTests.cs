@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace ControllerTests
 {
@@ -90,17 +91,41 @@ namespace ControllerTests
             var createdOffices = db.OfficeAssignments.Where(o => o.Location == instructorOffice);
             Assert.AreEqual<int>(2, createdOffices.Count(), "not enough offices created");
 
-            // somehow need to check CourseInstructor table for 2 entries...
-            //     make a bool method to check for each course and assert true
-            //     will use same method when deleting and then will assert false
             Assert.AreEqual<int>(1, InstructorCountByCourse(course1ID), "incorrect number of instructors for course");
             Assert.AreEqual<int>(1, InstructorCountByCourse(course2ID), "incorrect number of instructors for course");
         }
 
-        private int InstructorCountByCourse(int courseID)
+        [TestMethod]
+        public void InstructorDelete()
         {
-            string query = "select count(InstructorID) from CourseInstructor where CourseID = @CourseID";
-            return db.Database.SqlQuery<int>(query, new SqlParameter("@CourseID", courseID)).SingleOrDefault();
+            Department createdDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
+
+            List<int> instructorIDs = new List<int>();
+
+            foreach (Instructor instructor in createdDepartment.Instructors)
+            {
+                InstructorController instructorController = new InstructorController();
+                instructorIDs.Add(instructor.ID);
+                ActionResult result = instructorController.DeleteConfirmed(instructor.ID);
+            }
+
+            var deletedInstructors = db.Instructors.Where(i => i.DepartmentID == createdDepartment.DepartmentID);
+            Assert.AreEqual<int>(0, deletedInstructors.Count(), "didn't delete all the instructors");
+
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course1ID), "incorrect number of instructors for course");
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course2ID), "incorrect number of instructors for course");
+
+            foreach (int ID in instructorIDs)
+            {
+                var officeAssignment = db.OfficeAssignments.Where(o => o.InstructorID == ID).SingleOrDefault();
+                Assert.IsNull(officeAssignment, "didn't delete office assignment");
+            }
+
+            foreach (int courseID in new int[] { course1ID, course2ID })
+            {
+                var enrollment = db.Enrollments.Where(e => e.CourseID == courseID).SingleOrDefault();
+                Assert.IsNull(enrollment, "didn't delete enrollments");
+            }
         }
 
         [TestMethod]
@@ -129,6 +154,31 @@ namespace ControllerTests
         }
 
         [TestMethod]
+        public void CourseDelete()
+        {
+            Department createdDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
+
+            CourseController courseController1 = new CourseController();
+            ActionResult result1 = courseController1.DeleteConfirmed(course1ID);
+
+            CourseController courseController2 = new CourseController();
+            ActionResult result2 = courseController2.DeleteConfirmed(course2ID);
+
+            var deletedCourses = db.Courses.Where(c => c.DepartmentID == createdDepartment.DepartmentID);
+            Assert.AreEqual(0, deletedCourses.Count(), "didn't delete all the courses");
+
+            // unnecessary ?
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course1ID), "incorrect number of instructors for course");
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course2ID), "incorrect number of instructors for course");
+
+            foreach (int courseID in new int[] { course1ID, course2ID })
+            {
+                var enrollment = db.Enrollments.Where(e => e.CourseID == courseID).SingleOrDefault();
+                Assert.IsNull(enrollment, "didn't delete enrollments");
+            }
+        }
+
+        [TestMethod]
         public void StudentCreate()
         {
             StudentController studentController1 = new StudentController();
@@ -147,6 +197,12 @@ namespace ControllerTests
 
             var createdStudents = db.Students.Where(s => s.EnrollmentDate == studentEnrollmentDate);
             Assert.AreEqual<int>(2, createdStudents.Count(), "not enough students created");
+
+            foreach (int studentID in new int[] { student1.ID, student2.ID })
+            {
+                var enrollment = db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault();
+                Assert.IsNotNull(enrollment, "didn't create enrollment");
+            }
         }
 
         [TestMethod]
@@ -154,6 +210,12 @@ namespace ControllerTests
         {
             Department createdDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
             int studentCountBeforeDelete = (db.Students.Where(s => s.EnrollmentDate == studentEnrollmentDate)).Count();
+
+            List<int> instructorIDs = new List<int>();
+            foreach (Instructor instructor in createdDepartment.Instructors)
+            {
+                instructorIDs.Add(instructor.ID);
+            }
 
             DepartmentController departmentController = new DepartmentController();
 
@@ -163,7 +225,7 @@ namespace ControllerTests
             // probably uselsss
             Assert.AreEqual(TaskStatus.RanToCompletion, task.Status, "department didn't delete, task didn't complete");
 
-            Department deletedDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
+            Department deletedDepartment = db.Departments.Where(d => d.Name == departmentName).SingleOrDefault();
             Assert.IsNull(deletedDepartment, "department didn't delete");
 
             var deletedCourses = db.Courses.Where(c => c.DepartmentID == createdDepartment.DepartmentID);
@@ -172,8 +234,29 @@ namespace ControllerTests
             var deletedInstructors = db.Instructors.Where(i => i.DepartmentID == createdDepartment.DepartmentID);
             Assert.AreEqual<int>(0, deletedInstructors.Count(), "didn't delete all the instructors");
 
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course1ID), "incorrect number of instructors for course");
+            Assert.AreEqual<int>(0, InstructorCountByCourse(course2ID), "incorrect number of instructors for course");
+
             var checkforDeletedStudents = db.Students.Where(s => s.EnrollmentDate == studentEnrollmentDate);
             Assert.AreEqual<int>(studentCountBeforeDelete, checkforDeletedStudents.Count(), "deleted some students, shouldn't");
+
+            foreach (int ID in instructorIDs)
+            {
+                var officeAssignment = db.OfficeAssignments.Where(o => o.InstructorID == ID).SingleOrDefault();
+                Assert.IsNull(officeAssignment, "didn't delete office assignment");
+            }
+
+            foreach (int courseID in new int[] { course1ID, course2ID })
+            {
+                var enrollment = db.Enrollments.Where(e => e.CourseID == courseID).SingleOrDefault();
+                Assert.IsNull(enrollment, "didn't delete enrollments");
+            }
+        }
+
+        private int InstructorCountByCourse(int courseID)
+        {
+            string query = "select count(InstructorID) from CourseInstructor where CourseID = @CourseID";
+            return db.Database.SqlQuery<int>(query, new SqlParameter("@CourseID", courseID)).SingleOrDefault();
         }
     }
 }

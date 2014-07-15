@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<OrderedTest name="CourseDelete" storage="d:\my documents\src\asp.nettutorials\contosouniversity\controllertests\coursedelete.orderedtest" id="358f2b3c-47c8-413b-a1e1-39d1106774b5" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<OrderedTest name="coursedelete" storage="d:\my documents\src\asp.nettutorials\contosouniversity\controllertests\coursedelete.orderedtest" id="358f2b3c-47c8-413b-a1e1-39d1106774b5" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <TestLinks>
     <TestLink id="4ca218e0-af4c-f511-abf5-6e5c19944407" name="DatabaseReset" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="eb01e9f3-a3d5-c4f5-f5f6-1f96e5bcd123" name="DepartmentCreate" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="909e9310-7020-500f-ef15-6871c67fcd17" name="CourseCreate" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="5e60a7c2-d2c0-3f73-db5c-e8f520630887" name="StudentCreate" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="e3ca53e0-a5db-26a8-39ee-48b8a386487c" name="CourseDelete" storage="bin\debug\controllertests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </TestLinks>
 </OrderedTest>
