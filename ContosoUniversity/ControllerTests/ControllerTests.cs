@@ -206,6 +206,28 @@ namespace ControllerTests
         }
 
         [TestMethod]
+        public void StudentDelete()
+        {
+            var Students = db.Students.Where(s => s.EnrollmentDate == studentEnrollmentDate);
+            List<int> studentIDs = new List<int>();
+
+            foreach (Student student in Students)
+            {
+                StudentController studentController = new StudentController();
+                studentIDs.Add(student.ID);
+                ActionResult result = studentController.Delete(student.ID);
+            }
+
+            foreach (int studentID in studentIDs)
+            {
+                var student = db.Students.Where(s => s.ID == studentID).SingleOrDefault();
+                Assert.IsNull(student, "didn't delete student");
+                var enrollment = db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault();
+                Assert.IsNull(enrollment, "didn't delete enrollment");
+            }
+        }
+
+        [TestMethod]
         public void DepartmentDelete()
         {
             Department createdDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
