@@ -41,6 +41,12 @@ namespace ContosoUniversity.DAL
                 .WithRequired(i => i.Department)
                 .HasForeignKey(i => i.DepartmentID)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Student>()
+                .Map(m => m.MapInheritedProperties());
+
+            modelBuilder.Entity<Instructor>()
+                .Map(m => m.MapInheritedProperties());
         }
     }
 }
