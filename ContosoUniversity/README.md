@@ -25,7 +25,7 @@ Notes from the original tutorial:
 3. The code in the seed method, and an associated method, in [Migrations/Configruations.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Migrations/Configuration.cs) was commented out.  **NO LONGER RELEVANT**
     * The StartDate field was removed from the department model, the seed method was updated.
     * These methods should adequately seed a database to utilize this project - don't forget to uncomment it if you want to seed a database.
-4. [The connection resiliency and command interception](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application) steps were skipped.
+4. [The connection resiliency](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application) step was skipped, command interception was done.
 5. [The concurrency step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
 6. [The inheritance step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.  **NO LONGER RELEVANT**
 7. [None of the advanced Entity Framework scenarios](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application) were implemented.
