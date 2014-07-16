@@ -107,7 +107,7 @@
 
 @if (Model.Enrollments != null)
 {
-    <h3>Students Enrolled in @Html.DisplayFor(model => model.Instructor.Department.Name) @ViewBag.CourseID</h3>
+    <h3>Students Enrolled in @Html.DisplayFor(model => model.Instructor.Department.Name) @ViewBag.CourseID: @ViewBag.CourseTitle</h3>
     <table class="table">
         <tr>
             <th>Name</th>

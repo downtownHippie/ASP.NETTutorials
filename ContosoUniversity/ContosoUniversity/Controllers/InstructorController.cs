@@ -36,8 +36,8 @@ namespace ContosoUniversity.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Instructor instructor = db.Instructors
-                .Include(i => i.OfficeAssignment)
-                .Include(i => i.Department)
+                //.Include(i => i.OfficeAssignment)
+                //.Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
 
@@ -46,14 +46,14 @@ namespace ContosoUniversity.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.InstructorID = id.Value;
             var viewModel = new InstructorDetailData();
             viewModel.Instructor = instructor;
             viewModel.Courses = instructor.Courses;
 
             if (courseID != null)
             {
-                ViewBag.CourseID = courseID.Value;
+                ViewBag.CourseID = courseID;
+                ViewBag.CourseTitle = db.Courses.Where(c => c.CourseID == courseID).Select(t => t.Title).Single();
 
                 var selectedCourse = instructor.Courses.Where(x => x.CourseID == courseID).Single();
                 db.Entry(selectedCourse).Collection(x => x.Enrollments).Load();
