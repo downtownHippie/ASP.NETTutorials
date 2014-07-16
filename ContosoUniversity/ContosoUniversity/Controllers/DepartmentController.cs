@@ -62,8 +62,6 @@ namespace ContosoUniversity.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
             return View(department);
         }
 
@@ -142,9 +140,10 @@ namespace ContosoUniversity.Controllers
 
         private void PopulateInstructorsDropDownList(int departmentID, object selectedInstructor = null)
         {
-            var instructorsQuery = from i in db.Instructors
+            var instructorsQuery = (from i in db.Instructors
                                    where (i.DepartmentID == departmentID)
-                                   select i;
+                                   select i).ToList();
+            instructorsQuery.Insert(0, null);
             ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
         }
 

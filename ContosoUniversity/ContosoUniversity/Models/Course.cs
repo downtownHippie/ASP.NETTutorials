@@ -16,6 +16,7 @@ namespace ContosoUniversity.Models
         [Range(0, 5)]
         public int Credits { get; set; }
 
+        [Required(ErrorMessage = "Please select a department")]
         public int DepartmentID { get; set; }
 
         public virtual Department Department { get; set; }
