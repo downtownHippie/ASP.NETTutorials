@@ -52,4 +52,11 @@ In order to download and utilize the ContosoUniversity tutorial you will either 
 12. Run the application.
     * Press F5.
 13. See the [Readme](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/README.md) file for details about the modifications that were made to the tutorial
-    * Enjoy
+    * Enjoy.
+        1. Naviage around with the links at the top.
+        2. Create new departments, instructors, courses, students.
+        3. Assign instructors to courses.
+        4. Assign administators to departments.
+        5. Give students grades.
+    * Be sure check out the issues associated with this project for any open issues.
+    * Also, check the closed issues to see how some of the enhacements and bugs were resolved.
