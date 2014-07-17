@@ -1,5 +1,7 @@
 [Link to the original tutorial on ASP.NET](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc)
 
+[Link to how to download and utilize this enhanced tutorial code base](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/HowTo.md)
+
 In the tutorial there was no mechanism to enroll students in courses.  The create new student page was modified to list all courses offered by the university.  Selecting a course will enroll a student in that course.  The edit student page was also modified to list all courses offered by the university.  The courses a student is enrolled in will be selected.  A student can be enrolled in additional courses by selecting them.  A student can be unenrolled from courses by unselecting them.  On both the create and edit pages the courses are grouped by department and sorted by courseid.
     
 Through the tutorial, the instructors index page allowed selection of an instructor.  The page would then repost and list all courses that instructor was teaching below the insturctor list.  Then, with the selection of one of those courses the page would repost again listing all the students in those courses, with their grades, at the bottom of the page.  All that functionality was moved to the instructor detail page.
