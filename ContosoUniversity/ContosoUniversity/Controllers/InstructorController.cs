@@ -195,7 +195,6 @@ namespace ContosoUniversity.Controllers
         {
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
-                .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
 
