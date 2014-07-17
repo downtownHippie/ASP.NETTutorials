@@ -121,6 +121,7 @@ namespace ControllerTests
                 Assert.IsNull(officeAssignment, "didn't delete office assignment");
             }
 
+            // this is wholly unnecessary and should probably be removed
             foreach (int courseID in new int[] { course1ID, course2ID })
             {
                 var enrollment = db.Enrollments.Where(e => e.CourseID == courseID).SingleOrDefault();
