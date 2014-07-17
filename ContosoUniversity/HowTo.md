@@ -58,5 +58,5 @@ In order to download and utilize the ContosoUniversity tutorial you will either 
         3. Assign instructors to courses.
         4. Assign administators to departments.
         5. Give students grades.
-    * Be sure check out the issues associated with this project for any open issues.
+    * Be sure check out the [issues](https://github.com/downtownHippie/ASP.NETTutorials/issues) associated with this project for any open issues.
     * Also, check the closed issues to see how some of the enhacements and bugs were resolved.
