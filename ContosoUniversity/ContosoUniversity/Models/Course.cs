@@ -6,6 +6,12 @@ namespace ContosoUniversity.Models
 {
     public class Course
     {
+        public Course()
+        {
+            Enrollments = new List<Enrollment>();
+            Instructors = new List<Instructor>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Number")]
         public int CourseID { get; set; }
