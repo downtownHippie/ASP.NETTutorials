@@ -8,7 +8,7 @@ namespace ContosoUniversityTests
     public class ModelTests
     {
         [TestMethod]
-        public void TestCourse()
+        public void CourseModelTest()
         {
             Course c = new Course();
             Assert.AreEqual(0, c.Enrollments.Count);
