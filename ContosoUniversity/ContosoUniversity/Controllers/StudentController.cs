@@ -168,7 +168,7 @@ namespace ContosoUniversity.Controllers
                 try
                 {
                     UpdateStudentCourses(selectedCourses, studentToUpdate);
-                    db.Entry(studentToUpdate).State = EntityState.Modified;
+                    db.Entry(studentToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
