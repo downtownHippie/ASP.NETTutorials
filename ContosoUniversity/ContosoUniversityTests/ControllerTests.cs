@@ -49,6 +49,12 @@ namespace ContosoUniversityTests
         }
 
         [TestMethod]
+        public void AllControllerCreateTest()
+        {
+            ConfirmDbSetup();
+        }
+
+        [TestMethod]
         public void InstructorDelete()
         {
             ConfirmDbSetup();
