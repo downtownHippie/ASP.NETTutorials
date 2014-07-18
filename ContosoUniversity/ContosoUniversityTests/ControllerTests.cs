@@ -98,7 +98,7 @@ namespace ContosoUniversityTests
         [TestMethod]
         public void InstructorDelete()
         {
-            Department createdDepartment = db.Departments.Where(d => d.Name == departmentName).Single();
+            Department createdDepartment = db.Departments.Include("Instructors").Where(d => d.Name == departmentName).Single();
 
             List<int> instructorIDs = new List<int>();
 
