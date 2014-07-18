@@ -10,6 +10,7 @@ namespace ContosoUniversity.DAL
             : base("SchoolContext")
         {
             Database.SetInitializer<SchoolContext>(new SchoolInitializer());
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Student> Students { get; set; }
