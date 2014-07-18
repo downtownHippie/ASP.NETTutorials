@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
-namespace ControllerTests
+namespace ContosoUniversityTests
 {
     [TestClass]
     public class ControllerTests
