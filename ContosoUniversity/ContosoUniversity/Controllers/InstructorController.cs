@@ -36,8 +36,8 @@ namespace ContosoUniversity.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Instructor instructor = db.Instructors
-                //.Include(i => i.OfficeAssignment)
-                //.Include(i => i.Department)
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.Department)
                 .Where(i => i.ID == id)
                 .Single();
 
@@ -157,7 +157,7 @@ namespace ContosoUniversity.Controllers
 
                     UpdateInstructorCourses(instructorToUpdate, selectedCourses);
 
-                    db.Entry(instructorToUpdate).State = EntityState.Modified;
+                    db.Entry(instructorToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -201,7 +201,7 @@ namespace ContosoUniversity.Controllers
             string sql = "delete from CourseInstructor where InstructorID = @InstructorID";
             db.Database.ExecuteSqlCommand(sql, new SqlParameter("@InstructorID", instructor.ID));
 
-            instructor.OfficeAssignment = null;
+            //instructor.OfficeAssignment = null;
             db.Instructors.Remove(instructor);
 
             var department = db.Departments
