@@ -7,6 +7,11 @@ namespace ContosoUniversity.Models
 {
     public partial class Instructor : Person
     {
+        public Instructor()
+        {
+            Courses = new List<Course>();
+        }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString="{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
         [Display(Name="Hire Date")]

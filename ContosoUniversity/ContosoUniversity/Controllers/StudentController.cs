@@ -96,7 +96,6 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LastName,FirstMidName,EnrollmentDate")] Student student, string[] selectedCourses)
         {
-            student.Enrollments = new List<Enrollment>();
             if (selectedCourses != null)
             {
                 foreach (var courseID in selectedCourses)

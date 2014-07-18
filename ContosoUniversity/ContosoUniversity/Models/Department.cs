@@ -6,6 +6,12 @@ namespace ContosoUniversity.Models
 {
     public class Department
     {
+        public Department()
+        {
+            Courses = new List<Course>();
+            Instructors = new List<Instructor>();
+        }
+
         public int DepartmentID { get; set; }
 
         [StringLength(50, MinimumLength = 3)]

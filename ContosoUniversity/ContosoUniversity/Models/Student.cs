@@ -6,6 +6,11 @@ namespace ContosoUniversity.Models
 {
     public partial class Student : Person
     {
+        public Student()
+        {
+            Enrollments = new List<Enrollment>();
+        }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name="Enrollment Date")]

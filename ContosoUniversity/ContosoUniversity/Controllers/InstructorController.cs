@@ -84,7 +84,6 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,HireDate,DepartmentID,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
-            instructor.Courses = new List<Course>();
             if (selectedCourses != null)
             {
                 foreach (var course in selectedCourses)
