@@ -2,6 +2,7 @@
 using ContosoUniversity.Models;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -129,7 +130,11 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses
+                .Include("Instructors.Courses")
+                .Where(c => c.CourseID == id)
+                .Single();
+
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");

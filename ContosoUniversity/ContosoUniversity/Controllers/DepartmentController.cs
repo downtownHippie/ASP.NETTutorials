@@ -120,24 +120,9 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Department department = await db.Departments.Include("Instructors.OfficeAssignment").Include("Courses.Instructors").Where(o => o.DepartmentID == id).SingleAsync();
-            //Department department = await db.Departments.Include("Instructors.OfficeAssignment").Where(d => d.DepartmentID == id).SingleAsync();
-            //Department department = await db.Departments.FindAsync(id);
+            Department department = await db.Departments.Include("Instructors.OfficeAssignment")
+                .Include("Courses.Instructors").Where(o => o.DepartmentID == id).SingleAsync();
 
-            //ICollection<Course> courses = department.Courses;
-            //foreach (Course course in courses)
-            //{
-            //    string sql = "delete from CourseInstructor where CourseID = @CourseID";
-            //    db.Database.ExecuteSqlCommand(sql, new SqlParameter("@CourseID", course.CourseID));
-            //}
-            //var instructors = department.Instructors;
-            //var instructors = db.Instructors.Include(o => o.OfficeAssignment).Where(d => d.DepartmentID == id);
-            //foreach (Instructor instructor in instructors)
-            //{
-            //    instructor.OfficeAssignment = null;
-            ////    //string sql = "delete from OfficeAssignment where InstructorID = @InstructorID";
-            ////    //db.Database.ExecuteSqlCommand(sql, new SqlParameter("@InstructorID", instructor.ID));
-            //}
             db.Departments.Remove(department);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

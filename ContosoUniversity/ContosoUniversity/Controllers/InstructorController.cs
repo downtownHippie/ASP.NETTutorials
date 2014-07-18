@@ -194,13 +194,10 @@ namespace ContosoUniversity.Controllers
         {
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
+                .Include("Courses.Instructors")
                 .Where(i => i.ID == id)
                 .Single();
 
-            string sql = "delete from CourseInstructor where InstructorID = @InstructorID";
-            db.Database.ExecuteSqlCommand(sql, new SqlParameter("@InstructorID", instructor.ID));
-
-            //instructor.OfficeAssignment = null;
             db.Instructors.Remove(instructor);
 
             var department = db.Departments
