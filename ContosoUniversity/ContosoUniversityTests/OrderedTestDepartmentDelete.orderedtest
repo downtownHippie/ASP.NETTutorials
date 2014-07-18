@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="DepartmentDeleteOrderedTest" storage="d:\my documents\src\asp.nettutorials\contosouniversity\contosouniversitytests\departmentdeleteorderedtest.orderedtest" id="2c4249fe-5a56-4c7c-a367-9923ac1fd95f" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="219056cc-7568-8f8e-f279-b74a131aab3d" name="DatabaseReset" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="74a6d78e-ab62-878e-db28-df09255c8a73" name="DepartmentCreate" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="f6453a98-8600-0c65-1329-741b4f0d7ca5" name="CourseCreate" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="19d6eb3b-deaa-f8ea-2c9c-59f5e6bd61f0" name="InstructorCreate" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="19a8f9b1-e0f7-f8e5-0a9b-fa988fb3170b" name="StudentCreate" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="b73c3766-57e5-7035-4731-baa56f2d7506" name="DepartmentDelete" storage="bin\debug\contosouniversitytests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

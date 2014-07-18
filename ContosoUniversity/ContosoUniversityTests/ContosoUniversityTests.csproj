@@ -94,19 +94,19 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CourseDelete.orderedtest">
+    <None Include="OrderedTestCourseDelete.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="DepartmentDelete.orderedtest">
+    <None Include="OrderedTestDepartmentDelete.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="InstructorDelete.orderedtest">
+    <None Include="OrderedTestInstructorDelete.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTestStudentDelete.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="StudentDelete.orderedtest">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContosoUniversity\ContosoUniversity.csproj">
