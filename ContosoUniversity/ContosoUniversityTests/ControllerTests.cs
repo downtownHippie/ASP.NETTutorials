@@ -13,41 +13,8 @@ using System.Data.Entity;
 namespace ContosoUniversityTests
 {
     [TestClass]
-    public class ControllerTests
+    public class ControllerTests : DatabaseSetup
     {
-        private SchoolContext db;
-        private ControllerTestObjects objects;
-
-        [TestInitialize()]
-        public void TestInitialize()
-        {
-            db = new SchoolContext();
-            objects = new ControllerTestObjects(3);
-
-            DatabaseReset();
-
-            DepartmentController departmentCreateController = new DepartmentController();
-            Task<ActionResult> task = departmentCreateController.Create(objects.department);
-            task.Wait();
-
-            // if a department is not correctly created might as well stop the test
-            Assert.AreEqual(TaskStatus.RanToCompletion, task.Status,
-                "department did not make, task did not complete correctly");
-            DoesDepartmentExist(true);
-
-            objects.SetDepartmentID(objects.department.DepartmentID);
-
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
-            {
-                CourseController courseController = new CourseController();
-                ActionResult courseControllerCreateResult = courseController.Create(objects.Courses[i]);
-                InstructorController instructorController = new InstructorController();
-                ActionResult instructorControllerCreateResult = instructorController.Create(objects.Instructors[i], new string[] { objects.Courses[i].CourseID.ToString() });
-                StudentController studentController = new StudentController();
-                ActionResult studentControllerCreateResult = studentController.Create(objects.Students[i], new string[] { objects.Courses[i].CourseID.ToString() });
-            }
-        }
-
         [TestMethod]
         public void AllControllerCreateTest()
         {
@@ -121,17 +88,6 @@ namespace ContosoUniversityTests
             HowManyStudents(objects.NumberOfDerivativeObjects);
         }
 
-        private void DatabaseReset()
-        {
-            db.Database.Delete();
-        }
-
-        private int InstructorCountByCourse(int courseID)
-        {
-            string query = "select count(InstructorID) from CourseInstructor where CourseID = @CourseID";
-            return db.Database.SqlQuery<int>(query, new SqlParameter("@CourseID", courseID)).SingleOrDefault();
-        }
-
         private void ConfirmDbSetup()
         {
             HowManyCourses(objects.NumberOfDerivativeObjects);
@@ -142,34 +98,16 @@ namespace ContosoUniversityTests
             DoEnrollmentsExist(true);
         }
 
+        private int InstructorCountByCourse(int courseID)
+        {
+            string query = "select count(InstructorID) from CourseInstructor where CourseID = @CourseID";
+            return db.Database.SqlQuery<int>(query, new SqlParameter("@CourseID", courseID)).SingleOrDefault();
+        }
+
         private void HowManyStudents(int num)
         {
             Assert.AreEqual<int>(num, db.Students.Where(s => s.EnrollmentDate == objects.studentEnrollmentDate).Count(),
                 "incorrect number of students");
-        }
-
-        private void DoEnrollmentsExist(bool yesOrNo)
-        {
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
-            {
-                int studentID = objects.Students[i].ID;
-                if (yesOrNo)
-                    Assert.IsNotNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
-                        "incorrect number of enrollments");
-                else
-                    Assert.IsNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
-                        "incorrect number of enrollments");
-            }
-        }
-
-        private void DoesDepartmentExist(bool yesOrNo)
-        {
-            if (yesOrNo)
-            Assert.IsNotNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
-                "department exists");
-            else
-            Assert.IsNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
-                "department does not exist");
         }
 
         private void HowManyOfficeAssignments(int num)
@@ -199,12 +137,28 @@ namespace ContosoUniversityTests
                 "incorrect number of courses");
         }
 
-        
+        private void DoEnrollmentsExist(bool yesOrNo)
+        {
+            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            {
+                int studentID = objects.Students[i].ID;
+                if (yesOrNo)
+                    Assert.IsNotNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
+                        "incorrect number of enrollments");
+                else
+                    Assert.IsNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
+                        "incorrect number of enrollments");
+            }
+        }
 
-        //[TestCleanup()]
-        //public void TestCleanup()
-        //{
-
-        //}
+        private void DoesDepartmentExist(bool yesOrNo)
+        {
+            if (yesOrNo)
+                Assert.IsNotNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
+                    "department exists");
+            else
+                Assert.IsNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
+                    "department does not exist");
+        }
     }
 }
