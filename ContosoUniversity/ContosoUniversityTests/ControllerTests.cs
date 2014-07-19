@@ -134,16 +134,13 @@ namespace ContosoUniversityTests
 
         private void DoEnrollmentsExist(bool yesOrNo)
         {
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
-            {
-                int studentID = objects.Students[i].ID;
-                if (yesOrNo)
-                    Assert.IsNotNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
-                        "incorrect number of enrollments");
-                else
-                    Assert.IsNull(db.Enrollments.Where(s => s.StudentID == studentID).SingleOrDefault(),
-                        "incorrect number of enrollments");
-            }
+            int[] studentIds = objects.Students.Select(o => o.ID).ToArray();
+            if (yesOrNo)
+                Assert.IsTrue(db.Enrollments.Where(s => studentIds.Contains(s.StudentID)).Count() != 0/*.SingleOrDefault()*/,
+                    "incorrect number of enrollments");
+            else
+                Assert.IsTrue(db.Enrollments.Where(s => studentIds.Contains(s.StudentID)).Count() == 0/*.SingleOrDefault()*/,
+                    "incorrect number of enrollments");
         }
 
         private void DoesDepartmentExist(bool yesOrNo)
