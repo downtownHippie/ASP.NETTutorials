@@ -1,14 +1,9 @@
-﻿using System;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Controllers;
-using ContosoUniversity.Models;
+﻿using ContosoUniversity.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Web.Mvc;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ContosoUniversityTests
 {

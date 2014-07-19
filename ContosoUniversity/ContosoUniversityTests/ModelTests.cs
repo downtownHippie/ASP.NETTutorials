@@ -1,6 +1,5 @@
-﻿using System;
+﻿using ContosoUniversity.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ContosoUniversity.Models;
 
 namespace ContosoUniversityTests
 {
