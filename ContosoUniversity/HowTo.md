@@ -9,12 +9,12 @@ In order to download and utilize my extended ContosoUniversity tutorial you will
 1. Paste the solution folder somewhere on your hard drive.
 1. Start Visual Studio.
     * Open the folder you just created and double click the ContosoUniversity.sln solution file.
-1. You may get 2 security warnings about only opening projects from trustworthy sources.
-    * Click OK on both dialog boxes.
+1. You may get security warnings about only opening projects from trustworthy sources.
+    * Click OK in the dialog boxes.
 1. Configure the database connection string in the Web.config file for the ContosoUniversity project.
     * Edit the Web.config file.
     * Change the name of the SQL Server from ZANZABAR to the hostname of your SQL Server.
-1. Configure the database connection string in the App.config file for the ControllerTests project.
+1. Configure the database connection string in the App.config file for the ContosoUniversityTests project.
     * Edit the App.config file.
     * Change the name of the SQL Server from ZANZABAR to the hostname of your SQL Server.
 1. Save all files.
@@ -25,7 +25,7 @@ In order to download and utilize my extended ContosoUniversity tutorial you will
 1. Run the tests.
     * In the Test Explorer window select the option to run all tests.
 1. Run the application.
-    * Press F5.
+    * From the DEBUG menu select Start Without Debugging.
 1. See the [Readme](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/README.md) file for details about the modifications that were made to the tutorial
     * Enjoy.
         1. Naviage around with the links at the top.
