@@ -30,7 +30,11 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id);
+            Department department = await db.Departments
+                .Include(d => d.Instructors)
+                .Include(d => d.Courses)
+                .Where(d => d.DepartmentID == id)
+                .SingleAsync();
             if (department == null)
             {
                 return HttpNotFound();

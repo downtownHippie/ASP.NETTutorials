@@ -38,6 +38,7 @@ namespace ContosoUniversity.Controllers
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Department)
+                .Include(i => i.Courses)
                 .Where(i => i.ID == id)
                 .Single();
 

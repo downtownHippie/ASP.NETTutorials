@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ContosoUniversity.Controllers
 {
@@ -18,7 +19,12 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrollment enrollment = await db.Enrollments.FindAsync(id);
+            Enrollment enrollment = await db.Enrollments
+                .Include(e => e.Course)
+                .Include(e => e.Student)
+                .Where(e => e.EnrollmentID == id)
+                .SingleAsync();
+
             if (enrollment == null)
             {
                 return HttpNotFound();
