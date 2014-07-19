@@ -1,35 +1,20 @@
 [Link to the original tutorial on ASP.NET](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc)
 
-[Link to how to download and utilize this enhanced tutorial code base](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/HowTo.md)
-
-In the tutorial there was no mechanism to enroll students in courses.  The create new student page was modified to list all courses offered by the university.  Selecting a course will enroll a student in that course.  The edit student page was also modified to list all courses offered by the university.  The courses a student is enrolled in will be selected.  A student can be enrolled in additional courses by selecting them.  A student can be unenrolled from courses by unselecting them.  On both the create and edit pages the courses are grouped by department and sorted by courseid.
-    
-Through the tutorial, the instructors index page allowed selection of an instructor.  The page would then repost and list all courses that instructor was teaching below the insturctor list.  Then, with the selection of one of those courses the page would repost again listing all the students in those courses, with their grades, at the bottom of the page.  All that functionality was moved to the instructor detail page.
-
-When selecting a course on the instructor details page the page reposts with the students and their grades listed at the bottom (as indicated above).  A link (through a controller and view) was added to assign student grades.
-
-CodeFirst migrations were disabled.  [DAL/SchoolInitializer.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/DAL/SchoolInitializer.cs) was modified so that if there is no database the entity framework will create one and seed it with data.  This should go a long way to allowing someone to download and play with this codebase.
-
-When a new department is created it will not have an administrator, after creating some instructors for the new department one of them can be selected as department administrator on the department edit page.
-
-Instructors must now assigned to a department when they are created.  Instructors can now only teach classes offered by their department.
-
-The department details page now lists all instructors from the department and all courses offered by the department.
-
-A collection of integration tests were developed to test the controllers.  A few minor issues relating to deletion of objects were detected and resolved.  The tests also revealed a a bug in the student and instructor controller.  The gui doesn't allow an invalid student or instructor object to be created.  But when testing the controllers directly the gui is bypassed and potentially invalid objects can be handed to the database for validation.  If an invalid object is passed to the database it throws an execption so the invalid object continues to the end of the method.  Both student and instructor contain navigation properties that were null, those objects needed to be instantiated as lists earlier in the controller method.  I'm sure someone would say "testing is good."
-
-The tutorial introduces model inheritance through TPH, using a discriminator field.  Model inheritance was implemented through the TPC method instead.
-
-Notes from the original tutorial:
-
-1. LocalDB was not used, the connection string in [Web.Config](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Web.config) points to a SQLServer 2014 instance named ContosoUniversity.
-2. The code in the seed method in [SchoolInitializer.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/DAL/SchoolInitializer.cs) was commented out later on as a precaution.  **NO LONGER RELEVANT**
-3. The code in the seed method, and an associated method, in [Migrations/Configruations.cs](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/ContosoUniversity/Migrations/Configuration.cs) was commented out.  **NO LONGER RELEVANT**
-    * The StartDate field was removed from the department model, the seed method was updated.
-    * These methods should adequately seed a database to utilize this project - don't forget to uncomment it if you want to seed a database.
-4. [The connection resiliency](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application) step was skipped, command interception was done.
-5. [The concurrency step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.
-6. [The inheritance step](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application) was skipped.  **NO LONGER RELEVANT**
-7. [None of the advanced Entity Framework scenarios](http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application) were implemented.
-
-**TODO**: all todo's were migrated to issues/enhnacements associated with this repository.
+1. A mechanism to enroll students in courses was created.
+    * The create new student page was modified to list all courses offered by the university.
+        1. Selecting courses will enroll a student in those courses.
+    * The edit student page was modified to list all courses offered by the university.
+        1. The courses a student is enrolled in will be selected.
+        1. A student can be enrolled in additional courses by selecting them.
+        1. A student can be unenrolled from courses by unselecting them.
+1. A mechamism to assign grades to students was created.
+    * When viewing the details of an instructor select a course and then select individual students to assigned grades.
+1. A [How To](https://github.com/downtownHippie/ASP.NETTutorials/blob/master/ContosoUniversity/HowTo.md) was created to detail the steps to utilize this enhanced tutorial.
+1. Instructors are now assigned to departments.
+    * Instructors can only teach courses offered by their department.
+    * Only instructors assigned to a department are eligible to be selected as department administrator.
+1. The department detail page now lists all courses and instructors assigned to that department.
+1. Model inheritance was implemented through TPC methods.
+1. Lazy loading was disabled on the database context.
+1. A suite of integration and unit tests has been developed.
+1. GitHub's [issue repository](https://github.com/downtownHippie/ASP.NETTutorials/issues) is being utilized to track bugs as well as enhancments to the tutorial.
