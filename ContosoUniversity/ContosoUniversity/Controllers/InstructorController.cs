@@ -38,6 +38,7 @@ namespace ContosoUniversity.Controllers
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Department)
+                .Include("Department.Administrator")
                 .Include(i => i.Courses)
                 .Where(i => i.ID == id)
                 .Single();
@@ -180,7 +181,11 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instructor instructor = db.Instructors.Find(id);
+            Instructor instructor = db.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.Department)
+                .Single(i => i.ID == id);
+
             if (instructor == null)
             {
                 return HttpNotFound();
