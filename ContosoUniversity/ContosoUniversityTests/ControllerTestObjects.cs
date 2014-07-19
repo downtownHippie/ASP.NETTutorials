@@ -17,8 +17,6 @@ namespace ContosoUniversityTests
         public List<Instructor> Instructors = new List<Instructor>();
         public List<Student> Students = new List<Student>();
 
-        // http://en.wikipedia.org/wiki/Gregorian_calendar#Adoption_in_Europe
-        // see the paragraph about what happened when Britan and the British Empire adopted the Gregorian Calendar
         public readonly DateTime instructorHireDate = new DateTime(9999, 12, 31);
         public readonly DateTime studentEnrollmentDate = new DateTime(9999, 12, 31);
 
