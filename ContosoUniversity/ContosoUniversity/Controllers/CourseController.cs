@@ -30,7 +30,11 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses
+                .Include(c => c.Department)
+                .Include(c => c.Instructors)
+                .Single(c => c.CourseID == id);
+
             if (course == null)
             {
                 return HttpNotFound();
@@ -72,7 +76,10 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses
+                .Include(c => c.Department)
+                .Single(i => i.CourseID == id);
+
             if (course == null)
             {
                 return HttpNotFound();
@@ -117,7 +124,10 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses
+                .Include(c => c.Department)
+                .Single(c => c.CourseID == id);
+
             if (course == null)
             {
                 return HttpNotFound();
