@@ -42,6 +42,16 @@
             @Html.DisplayFor(model => model.Credits)
         </dd>
 
+        <dt>
+            Instructors
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.Instructors)
+            {
+                <ul>@Html.DisplayFor(modelItem => item.FullName)</ul>
+            }
+        </dd>
     </dl>
 </div>
 <p>
