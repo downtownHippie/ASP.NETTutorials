@@ -3,6 +3,7 @@ using ContosoUniversity.DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ContosoUniversityTests
 {
@@ -46,6 +47,23 @@ namespace ContosoUniversityTests
         protected void DatabaseReset()
         {
             db.Database.Delete();
+
+            // This is a hack to support LocalDb
+            // when a LocalDb is deleted the file is removed from the filesystem
+            // here we determine if the connection string is one of LocalDb type
+            // if so, determine if the AttachDBFilename file exists
+            // if not copy the default into place.
+            if (db.Database.Connection.ConnectionString.Contains("LocalDb"))
+            {
+                string[] connectionStringComponents = db.Database.Connection.ConnectionString.Split(';');
+                string dbFileName = connectionStringComponents.Where(i => i.Contains("AttachDBFilename")).Single().Split('=')[1];
+
+                if (!System.IO.File.Exists(dbFileName))
+                {
+                    string emptyDbfileName = new System.Text.RegularExpressions.Regex("Test").Replace(dbFileName, "Empty");
+                    System.IO.File.Copy(emptyDbfileName, dbFileName);
+                }
+            }
         }
 
         //[TestCleanup()]
