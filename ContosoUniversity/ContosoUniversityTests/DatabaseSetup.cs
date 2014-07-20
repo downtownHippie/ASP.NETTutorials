@@ -109,6 +109,16 @@ namespace ContosoUniversityTests
                     "department does not exist");
         }
 
+        protected void ConfirmDbSetup()
+        {
+            HowManyCourses(objects.NumberOfDerivativeObjects);
+            HowManyInstructors(objects.NumberOfDerivativeObjects);
+            HowManyOfficeAssignments(objects.NumberOfDerivativeObjects);
+            HowManyCourseInstructorEntries(1);
+            HowManyStudents(objects.NumberOfDerivativeObjects);
+            DoEnrollmentsExist(true);
+        }
+
         //[TestCleanup()]
         //public void TestCleanup()
         //{

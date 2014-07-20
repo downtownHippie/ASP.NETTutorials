@@ -82,15 +82,5 @@ namespace ContosoUniversityTests
             DoEnrollmentsExist(false);
             HowManyStudents(objects.NumberOfDerivativeObjects);
         }
-
-        private void ConfirmDbSetup()
-        {
-            HowManyCourses(objects.NumberOfDerivativeObjects);
-            HowManyInstructors(objects.NumberOfDerivativeObjects);
-            HowManyOfficeAssignments(objects.NumberOfDerivativeObjects);
-            HowManyCourseInstructorEntries(1);
-            HowManyStudents(objects.NumberOfDerivativeObjects);
-            DoEnrollmentsExist(true);
-        }
     }
 }
