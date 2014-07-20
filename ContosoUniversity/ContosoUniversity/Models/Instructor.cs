@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
 {
-    public partial class Instructor : Person
+    public class Instructor : Person
     {
         public Instructor()
         {
@@ -13,8 +13,8 @@ namespace ContosoUniversity.Models
         }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString="{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
-        [Display(Name="Hire Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
 
         [ForeignKey("Department")]

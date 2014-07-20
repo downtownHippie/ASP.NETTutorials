@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ContosoUniversity.Models
 {
-    public partial class Student : Person
+    public class Student : Person
     {
         public Student()
         {
@@ -13,7 +13,7 @@ namespace ContosoUniversity.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name="Enrollment Date")]
+        [Display(Name = "Enrollment Date")]
         public DateTime EnrollmentDate { get; set; }
        
         public virtual ICollection<Enrollment> Enrollments { get; set; }
