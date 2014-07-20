@@ -23,25 +23,25 @@ namespace ContosoUniversityWebService.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<Course>()
-                .HasMany(c => c.Instructors)
-                .WithMany(i => i.Courses)
-                .Map(t => t.MapLeftKey("CourseID")
-                .MapRightKey("InstructorID")
-                .ToTable("CourseInstructor"));
+            //modelBuilder.Entity<Course>()
+            //    .HasMany(c => c.Instructors)
+            //    .WithMany(i => i.Courses)
+            //    .Map(t => t.MapLeftKey("CourseID")
+            //    .MapRightKey("InstructorID")
+            //    .ToTable("CourseInstructor"));
 
-            modelBuilder.Entity<Department>().MapToStoredProcedures();
+            //modelBuilder.Entity<Department>().MapToStoredProcedures();
 
-            modelBuilder.Entity<Department>()
-                .HasOptional(o => o.Administrator);
+            //modelBuilder.Entity<Department>()
+            //    .HasOptional(o => o.Administrator);
 
-            modelBuilder.Entity<Department>()
-                .HasMany(o => o.Instructors)
-                .WithRequired(i => i.Department)
-                .HasForeignKey(i => i.DepartmentID)
-                .WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Department>()
+            //    .HasMany(o => o.Instructors)
+            //    .WithRequired(i => i.Department)
+            //    .HasForeignKey(i => i.DepartmentID)
+            //    .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Student>()
                 .Map(m => m.MapInheritedProperties());
