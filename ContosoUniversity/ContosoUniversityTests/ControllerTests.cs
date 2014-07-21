@@ -74,7 +74,7 @@ namespace ContosoUniversityTests
 
             Assert.AreEqual(TaskStatus.RanToCompletion, task.Status, "department did not delete, task did not complete correctly");
 
-            DoesDepartmentExist(false);
+            DoesDepartmentExist(objects.department.DepartmentID, false);
             HowManyCourses(0);
             HowManyInstructors(0);
             HowManyOfficeAssignments(0);

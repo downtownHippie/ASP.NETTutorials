@@ -29,7 +29,7 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, task.Status,
                 "department did not make, task did not complete correctly");
             
-            DoesDepartmentExist(true);
+            DoesDepartmentExist(objects.department.DepartmentID, true);
 
             objects.SetDepartmentID(objects.department.DepartmentID);
 
@@ -99,13 +99,13 @@ namespace ContosoUniversityTests
                     "incorrect number of enrollments");
         }
 
-        protected void DoesDepartmentExist(bool yesOrNo)
+        protected void DoesDepartmentExist(int id, bool yesOrNo)
         {
             if (yesOrNo)
-                Assert.IsNotNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
+                Assert.IsNotNull(db.Departments.Where(d => d.DepartmentID == id).SingleOrDefault(),
                     "department exists");
             else
-                Assert.IsNull(db.Departments.Where(d => d.Name == objects.department.Name).SingleOrDefault(),
+                Assert.IsNull(db.Departments.Where(d => d.DepartmentID == id).SingleOrDefault(),
                     "department does not exist");
         }
 
