@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ContosoUniversityTests
 {
-    public class ControllerTestObjects
+    public class DatabaseTestObjects
     {
         public int NumberOfDerivativeObjects { get; private set; }
         // just to set some upper limit
@@ -19,12 +19,12 @@ namespace ContosoUniversityTests
 
         public readonly string officeLocation = Guid.NewGuid().ToString("D");
 
-        public ControllerTestObjects()
+        public DatabaseTestObjects()
         {
             throw new ArgumentOutOfRangeException("numberOfDerivativeObjects", "The Factory needs a number of derived objects to make");
         }
 
-        public ControllerTestObjects(int numberOfDerivativeObjects)
+        public DatabaseTestObjects(int numberOfDerivativeObjects)
         {
             if ((numberOfDerivativeObjects > MaxDerivedObjects) || (numberOfDerivativeObjects <= 0))
             {

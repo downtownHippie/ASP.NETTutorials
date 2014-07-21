@@ -86,12 +86,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ControllerTestObjects.cs" />
+    <Compile Include="DatabaseTestObjects.cs" />
     <Compile Include="ControllerTests.cs" />
     <Compile Include="DatabaseSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModelTests.cs" />
-    <Compile Include="DepartmentAdministratorTest.cs" />
+    <Compile Include="AdministratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

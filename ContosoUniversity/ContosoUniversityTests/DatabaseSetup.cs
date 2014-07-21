@@ -11,13 +11,13 @@ namespace ContosoUniversityTests
     public class DatabaseSetup
     {
         protected SchoolContext db;
-        protected ControllerTestObjects objects;
+        protected DatabaseTestObjects objects;
 
         [TestInitialize()]
         public void TestInitialize()
         {
             db = new SchoolContext();
-            objects = new ControllerTestObjects(3);
+            objects = new DatabaseTestObjects(3);
 
             DatabaseReset();
 
