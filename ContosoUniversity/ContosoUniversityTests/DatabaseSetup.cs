@@ -109,6 +109,16 @@ namespace ContosoUniversityTests
                     "department does not exist");
         }
 
+        protected void DoesInstructorExist(int instructorID, bool yesOrNo)
+        {
+            if (yesOrNo)
+                Assert.IsNotNull(db.Instructors.Where(i => i.ID == instructorID).SingleOrDefault(),
+                    "insrtuctor does not exist");
+            else
+                Assert.IsNotNull(db.Instructors.Where(i => i.ID == instructorID).SingleOrDefault(),
+                    "instructor does exist");
+        }
+
         protected void ConfirmDbSetup()
         {
             HowManyCourses(objects.NumberOfDerivativeObjects);
