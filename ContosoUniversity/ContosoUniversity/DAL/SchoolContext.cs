@@ -32,7 +32,7 @@ namespace ContosoUniversity.DAL
                 .MapRightKey("InstructorID")
                 .ToTable("CourseInstructor"));
 
-            modelBuilder.Entity<Department>().MapToStoredProcedures();
+            //modelBuilder.Entity<Department>().MapToStoredProcedures();
 
             modelBuilder.Entity<Department>()
                 .HasOptional(o => o.Administrator);
