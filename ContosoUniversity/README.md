@@ -18,3 +18,4 @@
 1. Lazy loading was disabled on the database context.
 1. A suite of integration and unit tests has been developed.
 1. GitHub's [issue repository](https://github.com/downtownHippie/ASP.NETTutorials/issues) is being utilized to track bugs as well as enhancments to the tutorial.
+1. Implemented a readonly webservice.
