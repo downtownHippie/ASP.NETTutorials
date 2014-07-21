@@ -3,7 +3,7 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
-using ContosoUniversityWebService.DAL;
+using ContosoUniversity.DAL;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.Data.Services.Providers;
