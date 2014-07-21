@@ -38,6 +38,9 @@ namespace ContosoUniversityTests
             Task<ActionResult> editTask = departmentEditController.Edit(department);
             editTask.Wait();
 
+            Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
+                "department did not edit, task did not complete correctly");
+
             Assert.IsNull(department.InstructorID,
                 "foreign instructor should not be allowed to take over");
         }
@@ -52,6 +55,9 @@ namespace ContosoUniversityTests
             DepartmentController departmentEditController = new DepartmentController();
             Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
             editTask.Wait();
+
+            Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
+                "department did not edit, task did not complete correctly");
 
             Assert.IsNull(objects.department.InstructorID,
                 "invalid instructor id should not be allowed");
@@ -68,8 +74,40 @@ namespace ContosoUniversityTests
             Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
             editTask.Wait();
 
+            Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
+                "department did not edit, task did not complete correctly");
+
             Assert.IsNotNull(objects.department.InstructorID,
                 "administrator not set correctly");
+        }
+
+        [TestMethod]
+        public void AdministratorTestClearInstructor()
+        {
+            ConfirmDbSetup();
+
+            objects.department.InstructorID = objects.Instructors[0].ID;
+
+            DepartmentController setAdminController = new DepartmentController();
+            Task<ActionResult> setAdminTask = setAdminController.Edit(objects.department);
+            setAdminTask.Wait();
+
+            Assert.AreEqual(TaskStatus.RanToCompletion, setAdminTask.Status,
+                "department did not accept administrator, task did not complete correctly");
+
+            Assert.IsNotNull(objects.department.InstructorID,
+                "administrator did not set");
+
+            objects.department.InstructorID = null;
+            DepartmentController clearAdminController = new DepartmentController();
+            Task<ActionResult> clearAdminTask = setAdminController.Edit(objects.department);
+            clearAdminTask.Wait();
+
+            Assert.AreEqual(TaskStatus.RanToCompletion, clearAdminTask.Status,
+                "department did not edit, task did not complete correctly");
+
+            Assert.IsNull(objects.department.InstructorID,
+                "administrator did not clear");
         }
 
         [TestMethod]
