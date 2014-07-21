@@ -6,7 +6,7 @@ namespace ContosoUniversityTests
 {
     public class DatabaseTestObjects
     {
-        public int NumberOfDerivativeObjects { get; private set; }
+        public int NumberOfDerivedObjects { get; private set; }
         // just to set some upper limit
         private int MaxDerivedObjects = 10;
         public Department department = new Department();
@@ -21,16 +21,16 @@ namespace ContosoUniversityTests
 
         public DatabaseTestObjects()
         {
-            throw new ArgumentOutOfRangeException("numberOfDerivativeObjects", "The Factory needs a number of derived objects to make");
+            throw new ArgumentOutOfRangeException("numberOfDerivedObjects", "The Factory needs a number of derived objects to make");
         }
 
         public DatabaseTestObjects(int numberOfDerivativeObjects)
         {
             if ((numberOfDerivativeObjects > MaxDerivedObjects) || (numberOfDerivativeObjects <= 0))
             {
-                throw new ArgumentOutOfRangeException("numberOfDerivativeObjects", "The Factory makes from 1 to " + MaxDerivedObjects + " objects");
+                throw new ArgumentOutOfRangeException("numberOfDerivedObjects", "The Factory makes from 1 to " + MaxDerivedObjects + " objects");
             }
-            NumberOfDerivativeObjects = numberOfDerivativeObjects;
+            NumberOfDerivedObjects = numberOfDerivativeObjects;
             department.Name = Guid.NewGuid().ToString("D");
             department.Budget = 1m;
             for (int i = 1; i <= numberOfDerivativeObjects; i++)
@@ -57,7 +57,7 @@ namespace ContosoUniversityTests
 
         public void SetDepartmentID(int id)
         {
-            for (int i = 0; i < NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < NumberOfDerivedObjects; i++)
             {
                 Courses[i].DepartmentID = id;
                 Instructors[i].DepartmentID = id;

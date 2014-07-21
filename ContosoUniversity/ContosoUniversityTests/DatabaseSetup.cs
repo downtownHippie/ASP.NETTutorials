@@ -33,7 +33,7 @@ namespace ContosoUniversityTests
 
             objects.SetDepartmentID(objects.department.DepartmentID);
 
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < objects.NumberOfDerivedObjects; i++)
             {
                 CourseController courseController = new CourseController();
                 ActionResult courseControllerCreateResult = courseController.Create(objects.Courses[i]);
@@ -69,7 +69,7 @@ namespace ContosoUniversityTests
 
         protected void HowManyCourseInstructorEntries(int num)
         {
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < objects.NumberOfDerivedObjects; i++)
             {
                 Assert.AreEqual<int>(num, InstructorCountByCourse(objects.Courses[i].CourseID),
                     "incorrect number of instructors for course");
@@ -121,11 +121,11 @@ namespace ContosoUniversityTests
 
         protected void ConfirmDbSetup()
         {
-            HowManyCourses(objects.NumberOfDerivativeObjects);
-            HowManyInstructors(objects.NumberOfDerivativeObjects);
-            HowManyOfficeAssignments(objects.NumberOfDerivativeObjects);
+            HowManyCourses(objects.NumberOfDerivedObjects);
+            HowManyInstructors(objects.NumberOfDerivedObjects);
+            HowManyOfficeAssignments(objects.NumberOfDerivedObjects);
             HowManyCourseInstructorEntries(1);
-            HowManyStudents(objects.NumberOfDerivativeObjects);
+            HowManyStudents(objects.NumberOfDerivedObjects);
             DoEnrollmentsExist(true);
         }
 

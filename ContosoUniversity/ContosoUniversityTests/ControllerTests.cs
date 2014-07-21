@@ -21,7 +21,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < objects.NumberOfDerivedObjects; i++)
             {
                 InstructorController instructorDeleteController = new InstructorController();
                 ActionResult instructorControllerDeleteResult = instructorDeleteController.DeleteConfirmed(objects.Instructors[i].ID);
@@ -37,7 +37,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < objects.NumberOfDerivedObjects; i++)
             {
                 CourseController courseDeleteController = new CourseController();
                 ActionResult courseControllerDeleteResult = courseDeleteController.DeleteConfirmed(objects.Courses[i].CourseID);
@@ -52,7 +52,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            for (int i = 0; i < objects.NumberOfDerivativeObjects; i++)
+            for (int i = 0; i < objects.NumberOfDerivedObjects; i++)
             {
                 StudentController studentDeleteController = new StudentController();
                 ActionResult studentControllerDeleteResult = studentDeleteController.Delete(objects.Students[i].ID);
@@ -80,7 +80,7 @@ namespace ContosoUniversityTests
             HowManyOfficeAssignments(0);
             HowManyCourseInstructorEntries(0);
             DoEnrollmentsExist(false);
-            HowManyStudents(objects.NumberOfDerivativeObjects);
+            HowManyStudents(objects.NumberOfDerivedObjects);
         }
     }
 }
