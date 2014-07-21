@@ -93,6 +93,15 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "DepartmentID,Name,Budget,InstructorID")] Department department)
         {
+            if (department.InstructorID != null)
+            {
+                Instructor potentialAdministrator = db.Instructors.SingleOrDefault(i => i.ID == department.InstructorID);
+                if ((potentialAdministrator == null) || (potentialAdministrator.DepartmentID != department.DepartmentID))
+                {
+                    department.InstructorID = null;
+                    ModelState.AddModelError("InstructorID", "Instructor must be valid and assigned to the department");
+                }
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(department).State = EntityState.Modified;
@@ -135,8 +144,8 @@ namespace ContosoUniversity.Controllers
         private void PopulateInstructorsDropDownList(int departmentID, object selectedInstructor = null)
         {
             var instructorsQuery = (from i in db.Instructors
-                                   where (i.DepartmentID == departmentID)
-                                   select i).ToList();
+                                    where (i.DepartmentID == departmentID)
+                                    select i).ToList();
             instructorsQuery.Insert(0, null);
             ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
         }
