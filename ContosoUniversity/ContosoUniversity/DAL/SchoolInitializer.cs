@@ -9,6 +9,32 @@ namespace ContosoUniversity.DAL
     {
         protected override void Seed(SchoolContext context)
         {
+            var grades = new List<Grade>() {
+                new Grade {
+                    Letter = "A",
+                    Value = 4
+                },
+                new Grade {
+                    Letter = "B",
+                    Value = 3
+                },
+                new Grade {
+                    Letter = "C",
+                    Value = 2
+                },
+                new Grade {
+                    Letter = "D",
+                    Value = 1
+                },
+                new Grade {
+                    Letter = "F",
+                    Value = 0
+                }
+            };
+
+            grades.ForEach(g => context.Grades.Add(g));
+            context.SaveChanges();
+
             var departments = new List<Department>
                 {
                     new Department { Name = "English",     Budget = 350000, 
@@ -130,32 +156,32 @@ namespace ContosoUniversity.DAL
                     new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Alexander").ID, 
                         CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID, 
-                        Grade = Grade.A 
+                        GradeID = grades.Single(g => g.Letter == "A").GradeID
                     },
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Alexander").ID,
                         CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID, 
-                        Grade = Grade.C 
+                        GradeID = grades.Single(g => g.Letter == "C").GradeID 
                      },                            
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Alexander").ID,
                         CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID, 
-                        Grade = Grade.B
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID 
                      },
                      new Enrollment { 
                          StudentID = students.Single(s => s.LastName == "Alonso").ID,
                         CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID, 
-                        Grade = Grade.B 
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID 
                      },
                      new Enrollment { 
                          StudentID = students.Single(s => s.LastName == "Alonso").ID,
                         CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID, 
-                        Grade = Grade.B 
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID 
                      },
                      new Enrollment {
                         StudentID = students.Single(s => s.LastName == "Alonso").ID,
                         CourseID = courses.Single(c => c.Title == "Composition" ).CourseID, 
-                        Grade = Grade.B 
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID 
                      },
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Anand").ID,
@@ -164,22 +190,22 @@ namespace ContosoUniversity.DAL
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Anand").ID,
                         CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
-                        Grade = Grade.B         
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID
                      },
                     new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Barzdukas").ID,
                         CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
-                        Grade = Grade.B         
+                        GradeID = grades.Single(g => g.Letter == "F").GradeID
                      },
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Li").ID,
                         CourseID = courses.Single(c => c.Title == "Composition").CourseID,
-                        Grade = Grade.B         
+                        GradeID = grades.Single(g => g.Letter == "C").GradeID
                      },
                      new Enrollment { 
                         StudentID = students.Single(s => s.LastName == "Justice").ID,
                         CourseID = courses.Single(c => c.Title == "Literature").CourseID,
-                        Grade = Grade.B         
+                        GradeID = grades.Single(g => g.Letter == "B").GradeID
                      }
                 };
             foreach (Enrollment e in enrollments)

@@ -121,7 +121,7 @@
                     @item.Student.FullName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Grade)
+                    @Html.DisplayFor(modelItem => item.Grade.Letter)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "Enrollment", new { id = item.EnrollmentID, instructorID = Model.Instructor.ID }, null)

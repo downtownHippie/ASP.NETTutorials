@@ -40,6 +40,7 @@ namespace ContosoUniversity.Controllers
                 .Include(i => i.Department)
                 .Include("Department.Administrator")
                 .Include(i => i.Courses)
+                .Include("Courses.Enrollments.Grade")
                 .Where(i => i.ID == id)
                 .Single();
 

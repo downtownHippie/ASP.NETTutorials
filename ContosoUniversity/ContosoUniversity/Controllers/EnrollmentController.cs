@@ -22,6 +22,7 @@ namespace ContosoUniversity.Controllers
             Enrollment enrollment = await db.Enrollments
                 .Include(e => e.Course)
                 .Include(e => e.Student)
+                .Include(e => e.Grade)
                 .Where(e => e.EnrollmentID == id)
                 .SingleAsync();
 
@@ -31,6 +32,7 @@ namespace ContosoUniversity.Controllers
             }
             ViewBag.theCourseID = enrollment.CourseID;
             ViewBag.theInstructorID = instructorID;
+            PopulateGradeDropDown(enrollment.GradeID);
             return View(enrollment);
         }
 
@@ -39,7 +41,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,Grade")] Enrollment enrollment, int? instructorID)
+        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,GradeID")] Enrollment enrollment, int? instructorID)
         {
             if (ModelState.IsValid)
             {
@@ -49,6 +51,13 @@ namespace ContosoUniversity.Controllers
             }
 ;
             return View(enrollment);
+        }
+
+        private void PopulateGradeDropDown(int? GradeID)
+        {
+            var gradeQuery = (db.Grades).ToList();
+            gradeQuery.Insert(0, null);
+            ViewBag.GradeId = new SelectList(gradeQuery, "GradeID", "Letter", GradeID);
         }
 
         protected override void Dispose(bool disposing)

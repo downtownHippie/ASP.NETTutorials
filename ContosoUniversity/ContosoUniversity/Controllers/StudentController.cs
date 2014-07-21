@@ -74,6 +74,7 @@ namespace ContosoUniversity.Controllers
             }
             Student student = db.Students
                 .Include("Enrollments.Course")
+                .Include("Enrollments.Grade")
                 .Where(s => s.ID == id)
                 .Single();
 
