@@ -136,12 +136,7 @@ namespace ContosoUniversityTests
             db.SaveChanges();
 
             Assert.IsNull(department.AdministratorID,
-                "can not stop this");
-
-            //// there is probably another test here
-            //objects.department.InstructorID = 1;
-            //db.Entry(objects.department).State = EntityState.Modified;
-            //db.SaveChanges();
+                "Mallet time, can not stop this");
         }
     }
 }
