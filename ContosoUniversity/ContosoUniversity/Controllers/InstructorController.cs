@@ -208,10 +208,10 @@ namespace ContosoUniversity.Controllers
             db.Instructors.Remove(instructor);
 
             var department = db.Departments
-                .Where(d => d.InstructorID == id)
+                .Where(d => d.AdministratorID == id)
                 .SingleOrDefault();
             if (department != null)
-                department.InstructorID = null;
+                department.AdministratorID = null;
 
             db.SaveChanges();
             return RedirectToAction("Index");

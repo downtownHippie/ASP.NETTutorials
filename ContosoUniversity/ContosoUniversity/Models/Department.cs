@@ -22,7 +22,7 @@ namespace ContosoUniversity.Models
         public decimal Budget { get; set; }
 
         [ForeignKey("Administrator")]
-        public int? InstructorID { get; set; }
+        public int? AdministratorID { get; set; }
 
         public virtual Instructor Administrator { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

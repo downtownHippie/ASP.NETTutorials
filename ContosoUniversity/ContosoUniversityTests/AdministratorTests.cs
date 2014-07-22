@@ -12,7 +12,7 @@ using System.Data.Entity;
 namespace ContosoUniversityTests
 {
     [TestClass]
-    public class DepartmentAdministratorTest : DatabaseSetup
+    public class AdministratorTests : DatabaseSetup
     {
         [TestMethod]
         public void AdministratorTestWithForeignInsrtuctor()
@@ -32,7 +32,7 @@ namespace ContosoUniversityTests
             DoesDepartmentExist(department.DepartmentID, true);
 
             int foreignInstructorID = objects.Instructors[0].ID;
-            department.InstructorID = foreignInstructorID;
+            department.AdministratorID = foreignInstructorID;
 
             DepartmentController departmentEditController = new DepartmentController();
             Task<ActionResult> editTask = departmentEditController.Edit(department);
@@ -41,7 +41,7 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
                 "department did not edit, task did not complete correctly");
 
-            Assert.IsNull(department.InstructorID,
+            Assert.IsNull(department.AdministratorID,
                 "foreign instructor should not be allowed to take over");
         }
 
@@ -50,7 +50,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            objects.department.InstructorID = 99;
+            objects.department.AdministratorID = 99;
             
             DepartmentController departmentEditController = new DepartmentController();
             Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
@@ -59,7 +59,7 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
                 "department did not edit, task did not complete correctly");
 
-            Assert.IsNull(objects.department.InstructorID,
+            Assert.IsNull(objects.department.AdministratorID,
                 "invalid instructor id should not be allowed");
         }
 
@@ -68,7 +68,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            objects.department.InstructorID = objects.Instructors[0].ID;
+            objects.department.AdministratorID = objects.Instructors[0].ID;
 
             DepartmentController departmentEditController = new DepartmentController();
             Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
@@ -77,7 +77,7 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
                 "department did not edit, task did not complete correctly");
 
-            Assert.IsNotNull(objects.department.InstructorID,
+            Assert.IsNotNull(objects.department.AdministratorID,
                 "administrator not set correctly");
         }
 
@@ -86,7 +86,7 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
-            objects.department.InstructorID = objects.Instructors[0].ID;
+            objects.department.AdministratorID = objects.Instructors[0].ID;
 
             DepartmentController setAdminController = new DepartmentController();
             Task<ActionResult> setAdminTask = setAdminController.Edit(objects.department);
@@ -95,10 +95,10 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, setAdminTask.Status,
                 "department did not accept administrator, task did not complete correctly");
 
-            Assert.IsNotNull(objects.department.InstructorID,
+            Assert.IsNotNull(objects.department.AdministratorID,
                 "administrator did not set");
 
-            objects.department.InstructorID = null;
+            objects.department.AdministratorID = null;
             DepartmentController clearAdminController = new DepartmentController();
             Task<ActionResult> clearAdminTask = setAdminController.Edit(objects.department);
             clearAdminTask.Wait();
@@ -106,7 +106,7 @@ namespace ContosoUniversityTests
             Assert.AreEqual(TaskStatus.RanToCompletion, clearAdminTask.Status,
                 "department did not edit, task did not complete correctly");
 
-            Assert.IsNull(objects.department.InstructorID,
+            Assert.IsNull(objects.department.AdministratorID,
                 "administrator did not clear");
         }
 
@@ -115,16 +115,30 @@ namespace ContosoUniversityTests
         {
             ConfirmDbSetup();
 
+            //objects.department.InstructorID = 1;
+
+            //DepartmentController departmentEditController = new DepartmentController();
+            //Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
+            //editTask.Wait();
+
+            //Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
+            //    "department did not edit, task did not complete correctly");
+            //Assert.IsNull(objects.department.InstructorID,
+            //    "invalid instructor id should not be allowed");
+
             Department department = db.Departments.Single(d => d.DepartmentID == objects.department.DepartmentID);
 
-            department.InstructorID = 1;
+            Assert.IsNull(department.AdministratorID,
+                "there should not be an administrator set");
+
+            department.AdministratorID = 1;
             db.Entry(department).State = EntityState.Modified;
             db.SaveChanges();
 
-            Assert.IsNull(department.InstructorID,
+            Assert.IsNull(department.AdministratorID,
                 "can not stop this");
 
-            // there is probably another test here
+            //// there is probably another test here
             //objects.department.InstructorID = 1;
             //db.Entry(objects.department).State = EntityState.Modified;
             //db.SaveChanges();

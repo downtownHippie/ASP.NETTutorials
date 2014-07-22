@@ -82,7 +82,7 @@ namespace ContosoUniversity.Controllers
                 return HttpNotFound();
             }
             //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
-            PopulateInstructorsDropDownList(department.DepartmentID, department.InstructorID);
+            PopulateInstructorsDropDownList(department.DepartmentID, department.AdministratorID);
             return View(department);
         }
 
@@ -91,15 +91,15 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DepartmentID,Name,Budget,InstructorID")] Department department)
+        public async Task<ActionResult> Edit([Bind(Include = "DepartmentID,Name,Budget,AdministratorID")] Department department)
         {
-            if (department.InstructorID != null)
+            if (department.AdministratorID != null)
             {
-                Instructor potentialAdministrator = db.Instructors.SingleOrDefault(i => i.ID == department.InstructorID);
+                Instructor potentialAdministrator = db.Instructors.SingleOrDefault(i => i.ID == department.AdministratorID);
                 if ((potentialAdministrator == null) || (potentialAdministrator.DepartmentID != department.DepartmentID))
                 {
-                    department.InstructorID = null;
-                    ModelState.AddModelError("InstructorID", "Instructor must be valid and assigned to the department");
+                    department.AdministratorID = null;
+                    ModelState.AddModelError("AdministratorID", "Instructor must be valid and assigned to the department");
                 }
             }
             if (ModelState.IsValid)
@@ -109,7 +109,7 @@ namespace ContosoUniversity.Controllers
                 return RedirectToAction("Index");
             }
             //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
-            PopulateInstructorsDropDownList(department.DepartmentID, department.InstructorID);
+            PopulateInstructorsDropDownList(department.DepartmentID, department.AdministratorID);
             return View(department);
         }
 
@@ -147,7 +147,7 @@ namespace ContosoUniversity.Controllers
                                     where (i.DepartmentID == departmentID)
                                     select i).ToList();
             instructorsQuery.Insert(0, null);
-            ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
+            ViewBag.AdministratorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
         }
 
         protected override void Dispose(bool disposing)
