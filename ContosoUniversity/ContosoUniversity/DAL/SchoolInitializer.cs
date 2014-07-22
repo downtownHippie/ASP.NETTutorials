@@ -105,7 +105,6 @@ namespace ContosoUniversity.DAL
             context.SaveChanges();
 
             AddInstructor(context, "Chemistry", "Kapoor");
-            AddInstructor(context, "Chemistry", "Harui");
             AddInstructor(context, "Microeconomics", "Zheng");
             AddInstructor(context, "Macroeconomics", "Zheng");
             AddInstructor(context, "Calculus", "Fakhouri");
