@@ -13,7 +13,7 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Enrollment/Edit/5
-        public async Task<ActionResult> Edit(int? id, int? instructorID)
+        public async Task<ActionResult> Edit(int? id, int instructorID)
         {
             if (id == null)
             {
@@ -41,7 +41,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,GradeID")] Enrollment enrollment, int? instructorID)
+        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,GradeID")] Enrollment enrollment, int instructorID)
         {
             if (ModelState.IsValid)
             {
