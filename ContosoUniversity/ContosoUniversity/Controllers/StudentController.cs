@@ -75,6 +75,7 @@ namespace ContosoUniversity.Controllers
             Student student = db.Students
                 .Include("Enrollments.Course")
                 .Include("Enrollments.Grade")
+                .Include(s => s.GPA)
                 .Where(s => s.ID == id)
                 .Single();
 
@@ -216,7 +217,10 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Student student = db.Students.Find(id);
+            Student student = db.Students
+                .Include(s => s.GPA)
+                .Include(s => s.Enrollments)
+                .Single(s => s.ID == id);
 
             try
             {

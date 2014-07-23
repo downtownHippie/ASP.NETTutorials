@@ -150,6 +150,11 @@ namespace ContosoUniversity.DAL
             students.ForEach(s => context.Students.Add(s));
             context.SaveChanges();
 
+            context.Database.ExecuteSqlCommand(Properties.Resources.GetGPA);
+            context.Database.ExecuteSqlCommand(Properties.Resources.MergeGPA);
+            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromInsertTrigger);
+            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromUpdateDeleteTrigger);
+
             var enrollments = new List<Enrollment>
                 {
                     new Enrollment { 

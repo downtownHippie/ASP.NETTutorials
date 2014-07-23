@@ -20,6 +20,7 @@ namespace ContosoUniversity.DAL
         public DbSet<Department> Departments { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<GPA> GPAs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

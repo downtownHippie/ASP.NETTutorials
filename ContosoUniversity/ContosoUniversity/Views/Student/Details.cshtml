@@ -33,6 +33,14 @@
         <dd>
             @Html.DisplayFor(model => model.EnrollmentDate)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GPA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(mode => mode.GPA.Value)
+        </dd>
         
         <dt>
             @Html.DisplayNameFor(model => model.Enrollments)
@@ -42,6 +50,7 @@
             <table class="table">
                 <tr>
                     <th>Course Title</th>
+                    <th>Credits</th>
                     <th>Grade</th>
                 </tr>
                 @foreach (var item in Model.Enrollments)
@@ -49,6 +58,9 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Course.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.Credits)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Grade.Letter)
