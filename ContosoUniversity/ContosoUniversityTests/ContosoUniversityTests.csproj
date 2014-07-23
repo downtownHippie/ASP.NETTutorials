@@ -87,11 +87,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DatabaseTestObjects.cs" />
-    <Compile Include="ControllerTests.cs" />
+    <Compile Include="ControllerDeleteTests.cs" />
     <Compile Include="DatabaseSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModelTests.cs" />
     <Compile Include="AdministratorTests.cs" />
+    <Compile Include="ControllerCreateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

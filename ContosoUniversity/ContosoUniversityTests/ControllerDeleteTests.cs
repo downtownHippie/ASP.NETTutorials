@@ -8,14 +8,8 @@ using System.Web.Mvc;
 namespace ContosoUniversityTests
 {
     [TestClass]
-    public class ControllerTests : DatabaseSetup
+    public class ControllerDeleteTests : DatabaseSetup
     {
-        [TestMethod]
-        public void AllControllerCreateTest()
-        {
-            ConfirmDbSetup();
-        }
-
         [TestMethod]
         public void InstructorDelete()
         {
