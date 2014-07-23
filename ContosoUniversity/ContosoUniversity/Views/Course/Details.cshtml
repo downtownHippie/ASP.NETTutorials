@@ -49,7 +49,7 @@
         <dd>
             @foreach (var item in Model.Instructors)
             {
-                <ul>@Html.DisplayFor(modelItem => item.FullName)</ul>
+                @Html.DisplayFor(modelItem => item.FullName)<br/>
             }
         </dd>
     </dl>
