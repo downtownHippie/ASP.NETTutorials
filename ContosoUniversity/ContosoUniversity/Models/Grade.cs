@@ -13,7 +13,7 @@ namespace ContosoUniversity.Models
         [StringLength(1)]
         [DisplayFormat(NullDisplayText = "No grade")]
         [Required]
-        public string  Letter { get; set; }
+        public string Letter { get; set; }
         
         [Range(0, 4)]
         public int Value { get; set; }

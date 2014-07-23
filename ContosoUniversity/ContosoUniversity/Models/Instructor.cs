@@ -20,8 +20,8 @@ namespace ContosoUniversity.Models
         [ForeignKey("Department")]
         [Required(ErrorMessage = "Please select a department")]
         public int DepartmentID { get; set; }
+        
         public virtual Department Department { get; set; }
-
         public virtual ICollection<Course> Courses { get; set; }
         public virtual OfficeAssignment OfficeAssignment { get; set; }
     }

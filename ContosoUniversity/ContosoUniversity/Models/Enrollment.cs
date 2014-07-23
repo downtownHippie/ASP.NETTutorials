@@ -11,8 +11,8 @@ namespace ContosoUniversity.Models
 
         [ForeignKey("Grade")]
         public int? GradeID { get; set; }
-        public virtual Grade Grade { get; set; }
 
+        public virtual Grade Grade { get; set; }
         public virtual Course Course { get; set; }
         public virtual Student Student { get; set; }
     }
