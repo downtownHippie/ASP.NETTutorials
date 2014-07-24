@@ -110,6 +110,7 @@ namespace ContosoUniversity.Controllers
                     int courseIDi = int.Parse(courseID);
                     Course course = db.Courses.Where(c => c.CourseID == courseIDi).Single();
                     enrollment.Course = course;
+                    enrollment.CourseID = courseIDi;
                     enrollment.Student = student;
                     student.Enrollments.Add(enrollment);
                 }
@@ -169,11 +170,13 @@ namespace ContosoUniversity.Controllers
                 .Include(i => i.Enrollments)
                 .Where(i => i.ID == id)
                 .Single();
+            
+            UpdateStudentCourses(selectedCourses, studentToUpdate);
+
             if (TryUpdateModel(studentToUpdate, "", new string[] { "LastName", "FirstMidName", "EnrollmentDate" }))
             {
                 try
                 {
-                    UpdateStudentCourses(selectedCourses, studentToUpdate);
                     db.Entry(studentToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -275,6 +278,7 @@ namespace ContosoUniversity.Controllers
                     {
                         Enrollment enrollment = new Enrollment();
                         enrollment.Course = course;
+                        enrollment.CourseID = course.CourseID;
                         enrollment.Student = studentToUpdate;
                         studentToUpdate.Enrollments.Add(enrollment);
                     }
