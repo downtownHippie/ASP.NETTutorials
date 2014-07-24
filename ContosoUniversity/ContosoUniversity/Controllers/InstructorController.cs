@@ -74,7 +74,6 @@ namespace ContosoUniversity.Controllers
         public ActionResult Create()
         {
             var instructor = new Instructor();
-            instructor.Courses = new List<Course>();
             PopulateAssignedCourseData(instructor);
             PopulateDepartmentsDropDownList();
             return View();

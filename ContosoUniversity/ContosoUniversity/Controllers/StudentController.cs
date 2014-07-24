@@ -90,7 +90,6 @@ namespace ContosoUniversity.Controllers
         public ActionResult Create()
         {
             var student = new Student();
-            student.Enrollments = new List<Enrollment>();
             PopulateAssignedCourseData(student);
             return View();
         }
