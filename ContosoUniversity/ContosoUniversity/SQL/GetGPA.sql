@@ -1,7 +1,9 @@
 ﻿CREATE FUNCTION GetGPA (@StudentID int) 
-RETURNS TABLE
-AS RETURN
-SELECT ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2) Value
+RETURNS float
+AS
+BEGIN
+DECLARE @ReturnValue float
+SELECT @ReturnValue = ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2)
 	FROM (
 		SELECT 
 			CAST(Credits as float) Credits
@@ -19,3 +21,5 @@ SELECT ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2) Va
 			, e.courseID
 			, Credits
 	) StudentTotal
+RETURN @ReturnValue;
+END
