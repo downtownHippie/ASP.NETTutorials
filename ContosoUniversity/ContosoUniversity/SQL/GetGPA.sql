@@ -2,8 +2,8 @@
 RETURNS float
 AS
 BEGIN
-DECLARE @ReturnValue float
-SELECT @ReturnValue = ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2)
+DECLARE @GPA float
+SELECT @GPA = ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2)
 	FROM (
 		SELECT 
 			CAST(Credits as float) Credits
@@ -21,5 +21,5 @@ SELECT @ReturnValue = ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.
 			, e.courseID
 			, Credits
 	) StudentTotal
-RETURN @ReturnValue;
+RETURN @GPA;
 END
