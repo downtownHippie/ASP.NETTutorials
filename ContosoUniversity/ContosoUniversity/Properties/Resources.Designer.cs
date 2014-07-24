@@ -61,10 +61,30 @@ namespace ContosoUniversity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER CreateGPAFromStudentTrigger
+        ///ON Student
+        ///AFTER INSERT AS
+        ///BEGIN
+        ///	DECLARE @InsertedStudentID AS int
+        ///	SELECT @InsertedStudentID = ID FROM INSERTED
+        ///	INSERT INTO GPA
+        ///	VALUES
+        ///		(@InsertedStudentID, NULL)
+        ///END.
+        /// </summary>
+        internal static string CreateGPAFromStudentTrigger {
+            get {
+                return ResourceManager.GetString("CreateGPAFromStudentTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE FUNCTION GetGPA (@StudentID int) 
-        ///RETURNS TABLE
-        ///AS RETURN
-        ///SELECT ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2) Value
+        ///RETURNS float
+        ///AS
+        ///BEGIN
+        ///DECLARE @GPA float
+        ///SELECT @GPA = ROUND(SUM (StudentTotal.TotalCredits) / SUM (StudentTotal.Credits), 2)
         ///	FROM (
         ///		SELECT 
         ///			CAST(Credits as float) Credits
@@ -79,8 +99,7 @@ namespace ContosoUniversity.Properties {
         ///		GROUP BY
         ///			StudentID
         ///			, Value
-        ///			, e.courseID
-        ///			, Credit [rest of string was truncated]&quot;;.
+        ///			, e. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetGPA {
             get {
@@ -89,20 +108,16 @@ namespace ContosoUniversity.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE PROCEDURE MergeGPA @StudentID int AS
-        ///MERGE GPA AS TARGET
-        ///USING (SELECT @StudentID) as SOURCE (StudentID)
-        ///ON (TARGET.StudentID = SOURCE.StudentID)
-        ///WHEN MATCHED THEN
-        ///	UPDATE
-        ///		SET Value = (SELECT Value FROM GetGPA(@StudentID))
-        ///WHEN NOT MATCHED THEN
-        ///INSERT (StudentID, Value)
-        ///	VALUES(SOURCE.StudentID, (SELECT Value FROM GetGPA(@StudentID)));.
+        ///   Looks up a localized string similar to CREATE PROCEDURE UpdateGPA @StudentID int AS
+        ///UPDATE GPA
+        ///	SET Value = dbo.GetGPA(@StudentID)
+        ///FROM GPA
+        ///WHERE
+        ///	StudentID = @StudentID.
         /// </summary>
-        internal static string MergeGPA {
+        internal static string UpdateGPA {
             get {
-                return ResourceManager.GetString("MergeGPA", resourceCulture);
+                return ResourceManager.GetString("UpdateGPA", resourceCulture);
             }
         }
         
@@ -110,11 +125,14 @@ namespace ContosoUniversity.Properties {
         ///   Looks up a localized string similar to CREATE TRIGGER UpdateGPAFromInsert
         ///ON Enrollment
         ///AFTER INSERT AS
-        ///DECLARE @InsertedStudentID AS int
-        ///BEGIN
-        ///	SELECT @InsertedStudentID = StudentID FROM INSERTED
-        ///	EXEC MergeGPA @InsertedStudentID
-        ///END.
+        ///--DECLARE @InsertedGradeID AS int
+        ///--SELECT @InsertedGradeID = GradeID FROM INSERTED
+        ///--IF @InsertedGradeID IS NOT NULL
+        ///	BEGIN
+        ///		DECLARE @InsertedStudentID AS int
+        ///		SELECT @InsertedStudentID = StudentID FROM INSERTED
+        ///		EXEC UpdateGPA @InsertedStudentID
+        ///	END.
         /// </summary>
         internal static string UpdateGPAFromInsertTrigger {
             get {
@@ -126,10 +144,10 @@ namespace ContosoUniversity.Properties {
         ///   Looks up a localized string similar to CREATE TRIGGER UpdateGPAFromUpdateDelete
         ///ON Enrollment
         ///AFTER UPDATE, DELETE AS
-        ///DECLARE @UpdatedStudentID AS int
         ///BEGIN
+        ///	DECLARE @UpdatedStudentID AS int
         ///	SELECT @UpdatedStudentID = StudentID FROM DELETED
-        ///	EXEC MergeGPA @UpdatedStudentID
+        ///	EXEC UpdateGPA @UpdatedStudentID
         ///END.
         /// </summary>
         internal static string UpdateGPAFromUpdateDeleteTrigger {

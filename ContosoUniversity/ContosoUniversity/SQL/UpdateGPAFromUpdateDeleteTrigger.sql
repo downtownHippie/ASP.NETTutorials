@@ -4,5 +4,5 @@ AFTER UPDATE, DELETE AS
 BEGIN
 	DECLARE @UpdatedStudentID AS int
 	SELECT @UpdatedStudentID = StudentID FROM DELETED
-	EXEC MergeGPA @UpdatedStudentID
+	EXEC UpdateGPA @UpdatedStudentID
 END

@@ -9,6 +9,12 @@ namespace ContosoUniversity.DAL
     {
         protected override void Seed(SchoolContext context)
         {
+            context.Database.ExecuteSqlCommand(Properties.Resources.GetGPA);
+            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPA);
+            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromInsertTrigger);
+            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromUpdateDeleteTrigger);
+            context.Database.ExecuteSqlCommand(Properties.Resources.CreateGPAFromStudentTrigger);
+
             var grades = new List<Grade>() {
                 new Grade {
                     Letter = "A",
@@ -149,11 +155,6 @@ namespace ContosoUniversity.DAL
                 };
             students.ForEach(s => context.Students.Add(s));
             context.SaveChanges();
-
-            context.Database.ExecuteSqlCommand(Properties.Resources.GetGPA);
-            context.Database.ExecuteSqlCommand(Properties.Resources.MergeGPA);
-            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromInsertTrigger);
-            context.Database.ExecuteSqlCommand(Properties.Resources.UpdateGPAFromUpdateDeleteTrigger);
 
             var enrollments = new List<Enrollment>
                 {
