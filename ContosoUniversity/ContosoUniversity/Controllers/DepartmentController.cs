@@ -40,7 +40,7 @@ namespace ContosoUniversity.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new DepartmentDetailsData();
+            var viewModel = new DepartmentDetailData();
             viewModel.Department = department;
             viewModel.Coruses = department.Courses;
             viewModel.Instructors = department.Instructors;

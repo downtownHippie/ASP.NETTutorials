@@ -154,7 +154,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssignedCourseData.cs" />
-    <Compile Include="ViewModels\DepartmentDetailsData.cs" />
+    <Compile Include="ViewModels\DepartmentDetailData.cs" />
     <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
     <Compile Include="ViewModels\InstructorDetailData.cs" />
   </ItemGroup>

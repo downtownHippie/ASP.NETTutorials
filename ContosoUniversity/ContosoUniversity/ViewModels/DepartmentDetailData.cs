@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ContosoUniversity.ViewModels
 {
-    public class DepartmentDetailsData
+    public class DepartmentDetailData
     {
         public Department Department { get; set; }
         public IEnumerable<Instructor> Instructors { get; set; }
