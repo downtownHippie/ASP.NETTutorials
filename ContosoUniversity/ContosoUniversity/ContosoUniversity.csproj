@@ -183,6 +183,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\CalculateAllGPAs.sql" />
     <Content Include="SQL\CreateGPAFromStudentTrigger.sql" />
+    <Content Include="SQL\UpdateGPA.sql" />
     <Content Include="SQL\UpdateGPAFromInsertTrigger.sql" />
     <Content Include="SQL\GetGPA.sql" />
     <Content Include="SQL\UpdateGPAFromUpdateDeleteTrigger.sql" />
