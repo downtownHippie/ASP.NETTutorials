@@ -32,6 +32,6 @@ In order to download and utilize my extended ContosoUniversity tutorial you will
         1. Create new departments, instructors, courses, students.
         1. Assign instructors to courses.
         1. Assign administators to departments.
-        1. Give students grades.
+        1. Give students grades and see their GPA change.
     * Be sure check out the [issues](https://github.com/downtownHippie/ASP.NETTutorials/issues) associated with this project for any open issues.
     * Also, check the closed issues to see how some of the enhacements and bugs were resolved.
