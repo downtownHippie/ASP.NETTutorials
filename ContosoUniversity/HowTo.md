@@ -13,10 +13,10 @@ In order to download and utilize my extended ContosoUniversity tutorial you will
     * Click OK in the dialog boxes.
 1. Configure the database connection string in the Web.config file for the ContosoUniversity project.
     * Edit the Web.config file.
-    * Change the name of the SQL Server from ZANZABAR to the hostname of your SQL Server.
+    * Change the name of the SQL Server from "(local)" to the hostname of your SQL Server.
 1. Configure the database connection string in the App.config file for the ContosoUniversityTests project.
     * Edit the App.config file.
-    * Change the name of the SQL Server from ZANZABAR to the hostname of your SQL Server.
+    * Change the name of the SQL Server from "(local)" to the hostname of your SQL Server.
 1. Save all files.
     * On the FILE menu select Save All.
 1. Build the solution.
