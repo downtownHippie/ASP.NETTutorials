@@ -221,7 +221,7 @@ namespace ContosoUniversity.Controllers
         {
             Student student = db.Students
                 .Include(s => s.GPA)
-                .Include(s => s.Enrollments)
+                //.Include(s => s.Enrollments)
                 .Single(s => s.ID == id);
 
             try
