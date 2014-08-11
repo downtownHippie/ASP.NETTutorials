@@ -147,11 +147,10 @@ namespace ContosoUniversity.Controllers
 
         private void PopulateInstructorsDropDownList(int departmentID, object selectedInstructor = null)
         {
-            var instructorsQuery = (from i in db.Instructors
-                                    where (i.DepartmentID == departmentID)
-                                    select i).ToList();
-            instructorsQuery.Insert(0, null);
-            ViewBag.AdministratorID = new SelectList(instructorsQuery, "ID", "FullName", selectedInstructor);
+            List<Instructor> instructorsList = db.Instructors
+                .Where(i => i.DepartmentID == departmentID).ToList();
+            instructorsList.Insert(0, null);
+            ViewBag.AdministratorID = new SelectList(instructorsList, "ID", "FullName", selectedInstructor);
         }
 
         protected override void Dispose(bool disposing)
