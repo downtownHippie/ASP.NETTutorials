@@ -110,33 +110,33 @@ namespace ContosoUniversityTests
                 "administrator did not clear");
         }
 
-        [TestMethod]
-        public void AdministratorUntestable()
-        {
-            ConfirmDbSetup();
+        //[TestMethod]
+        //public void AdministratorUntestable()
+        //{
+        //    ConfirmDbSetup();
 
-            //objects.department.InstructorID = 1;
+        //    //objects.department.InstructorID = 1;
 
-            //DepartmentController departmentEditController = new DepartmentController();
-            //Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
-            //editTask.Wait();
+        //    //DepartmentController departmentEditController = new DepartmentController();
+        //    //Task<ActionResult> editTask = departmentEditController.Edit(objects.department);
+        //    //editTask.Wait();
 
-            //Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
-            //    "department did not edit, task did not complete correctly");
-            //Assert.IsNull(objects.department.InstructorID,
-            //    "invalid instructor id should not be allowed");
+        //    //Assert.AreEqual(TaskStatus.RanToCompletion, editTask.Status,
+        //    //    "department did not edit, task did not complete correctly");
+        //    //Assert.IsNull(objects.department.InstructorID,
+        //    //    "invalid instructor id should not be allowed");
 
-            Department department = db.Departments.Single(d => d.DepartmentID == objects.department.DepartmentID);
+        //    Department department = db.Departments.Single(d => d.DepartmentID == objects.department.DepartmentID);
 
-            Assert.IsNull(department.AdministratorID,
-                "there should not be an administrator set");
+        //    Assert.IsNull(department.AdministratorID,
+        //        "there should not be an administrator set");
 
-            department.AdministratorID = 1;
-            db.Entry(department).State = EntityState.Modified;
-            db.SaveChanges();
+        //    department.AdministratorID = 1;
+        //    db.Entry(department).State = EntityState.Modified;
+        //    db.SaveChanges();
 
-            Assert.IsNull(department.AdministratorID,
-                "Mallet time, can not stop this");
-        }
+        //    Assert.IsNull(department.AdministratorID,
+        //        "Mallet time, can not stop this");
+        //}
     }
 }
