@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ContosoUniversityTests
 {
+        /* just an edit to test github gui */
     [TestClass]
     public class ModelTests
     {
